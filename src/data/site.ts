@@ -47,6 +47,7 @@ export type Project = {
   link?: string;
   linkLabel?: string;
   inProgress?: boolean;
+  image?: string;
 };
 
 export type LocaleContent = {
@@ -324,6 +325,7 @@ export const content: Record<Locale, LocaleContent> = {
           tags: ["Angular", ".NET / C#", "SQL", "Docker"],
           link: "https://movieworld-9msm.onrender.com",
           linkLabel: "Demo live",
+          image: "/projects/movieworld.jpg",
         },
         {
           title: "Memory Game",
@@ -332,6 +334,7 @@ export const content: Record<Locale, LocaleContent> = {
           tags: ["Angular", ".NET / C#", "Docker"],
           link: "https://memorygame-xrxa.onrender.com",
           linkLabel: "Demo live",
+          image: "/projects/memory-game.jpg",
         },
         {
           title: "EasyCid",
@@ -581,6 +584,7 @@ export const content: Record<Locale, LocaleContent> = {
           tags: ["Angular", ".NET / C#", "SQL", "Docker"],
           link: "https://movieworld-9msm.onrender.com",
           linkLabel: "Live demo",
+          image: "/projects/movieworld.jpg",
         },
         {
           title: "Memory Game",
@@ -589,6 +593,7 @@ export const content: Record<Locale, LocaleContent> = {
           tags: ["Angular", ".NET / C#", "Docker"],
           link: "https://memorygame-xrxa.onrender.com",
           linkLabel: "Live demo",
+          image: "/projects/memory-game.jpg",
         },
         {
           title: "EasyCid",
