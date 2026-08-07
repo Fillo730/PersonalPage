@@ -1,0 +1,58 @@
+---
+import { content, locales, person, socials } from "../data/site";
+---
+
+<section id="contact" class="section contact">
+  <div class="container container--narrow">
+    {
+      locales.map((lang) => {
+        const t = content[lang].contact;
+        return (
+          <div data-lang-block={lang}>
+            <div class="section-head">
+              <p class="eyebrow">{t.eyebrow}</p>
+              <h2>{t.heading}</h2>
+            </div>
+
+            <p class="contact__intro">{t.intro}</p>
+
+            <div class="contact__actions">
+              <a class="btn btn--primary" href={`mailto:${person.email}`}>
+                {person.email}
+              </a>
+              {person.phone && (
+                <a class="btn btn--ghost" href={`tel:${person.phone.replace(/\s+/g, "")}`}>
+                  {person.phone}
+                </a>
+              )}
+              {socials.map((social) => (
+                <a
+                  class="btn btn--ghost"
+                  href={social.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {social.label}
+                </a>
+              ))}
+            </div>
+          </div>
+        );
+      })
+    }
+  </div>
+</section>
+
+<style>
+  .contact__intro {
+    color: var(--color-ink-soft);
+    max-width: 32rem;
+    margin-bottom: var(--space-3);
+  }
+
+  .contact__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+</style>

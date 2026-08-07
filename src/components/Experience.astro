@@ -1,0 +1,101 @@
+---
+import { content, locales } from "../data/site";
+---
+
+<section id="experience" class="section">
+  <div class="container container--narrow">
+    {
+      locales.map((lang) => {
+        const t = content[lang].experience;
+        return (
+          <div data-lang-block={lang}>
+            <div class="section-head">
+              <p class="eyebrow">{t.eyebrow}</p>
+              <h2>{t.heading}</h2>
+            </div>
+
+            <ol class="timeline">
+              {t.items.map((item) => (
+                <li class="timeline__item">
+                  <div class="timeline__marker" aria-hidden="true" />
+                  <div class="timeline__content">
+                    <p class="timeline__period">{item.period}</p>
+                    <h3 class="timeline__role">{item.role}</h3>
+                    <p class="timeline__org">{item.organization}</p>
+                    <p class="timeline__desc">{item.description}</p>
+                    {item.tags && (
+                      <ul class="timeline__tags">
+                        {item.tags.map((tag) => (
+                          <li class="tag">{tag}</li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </div>
+        );
+      })
+    }
+  </div>
+</section>
+
+<style>
+  .timeline {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    padding-left: var(--space-4);
+    margin: 0;
+    list-style: none;
+    border-left: 1px solid var(--color-border);
+  }
+
+  .timeline__item {
+    position: relative;
+  }
+
+  .timeline__marker {
+    position: absolute;
+    left: calc(-1 * var(--space-4) - 5px);
+    top: 0.4em;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--color-accent);
+  }
+
+  .timeline__period {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--color-ink-faint);
+    margin-bottom: 0.35rem;
+  }
+
+  .timeline__role {
+    font-size: 1.25rem;
+    margin-bottom: 0.15rem;
+  }
+
+  .timeline__org {
+    color: var(--color-accent);
+    font-weight: 500;
+    margin-bottom: 0.6rem;
+  }
+
+  .timeline__desc {
+    color: var(--color-ink-soft);
+    max-width: 38rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .timeline__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+</style>

@@ -1,0 +1,52 @@
+---
+import "../styles/global.css";
+import { content, defaultLocale } from "../data/site";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = content[defaultLocale].meta.title,
+  description = content[defaultLocale].meta.description,
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang={defaultLocale}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Applica subito tema e lingua salvati, prima del render, per evitare flash -->
+    <script is:inline>
+      (function () {
+        var storedTheme = localStorage.getItem("theme");
+        if (storedTheme === "light" || storedTheme === "dark") {
+          document.documentElement.dataset.theme = storedTheme;
+        }
+        var storedLang = localStorage.getItem("lang");
+        if (storedLang === "it" || storedLang === "en") {
+          document.documentElement.dataset.lang = storedLang;
+          document.documentElement.lang = storedLang;
+        }
+      })();
+    </script>
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+
+    <!-- Google Fonts: Fraunces (titoli) + Inter (testo) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

@@ -1,0 +1,37 @@
+---
+import { content, locales } from "../data/site";
+---
+
+<section id="about" class="section about">
+  <div class="container container--narrow">
+    {
+      locales.map((lang) => {
+        const t = content[lang].about;
+        return (
+          <div data-lang-block={lang}>
+            <div class="section-head">
+              <p class="eyebrow">{t.eyebrow}</p>
+              <h2>{t.heading}</h2>
+            </div>
+            <div class="about__body">
+              {t.paragraphs.map((p) => (
+                <p>{p}</p>
+              ))}
+            </div>
+          </div>
+        );
+      })
+    }
+  </div>
+</section>
+
+<style>
+  .about__body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    font-size: 1.0625rem;
+    color: var(--color-ink-soft);
+    max-width: 40rem;
+  }
+</style>

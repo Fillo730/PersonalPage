@@ -1,0 +1,160 @@
+---
+import { content, locales, person } from "../data/site";
+import ThemeToggle from "./ThemeToggle.astro";
+import LangSwitch from "./LangSwitch.astro";
+---
+
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a href="#top" class="site-header__brand">{person.name}</a>
+
+    <div class="site-header__controls">
+      <LangSwitch />
+      <ThemeToggle />
+
+      <input type="checkbox" id="nav-toggle" class="nav-toggle" />
+      {
+        locales.map((lang) => (
+          <>
+            <label
+              for="nav-toggle"
+              class="nav-toggle-label"
+              data-lang-block={lang}
+              aria-label={lang === "it" ? "Apri il menu" : "Open menu"}
+            >
+              <span />
+            </label>
+
+            <nav
+              class="site-nav"
+              data-lang-block={lang}
+              aria-label={lang === "it" ? "Sezioni della pagina" : "Page sections"}
+            >
+              <ul>
+                {content[lang].nav.map((item) => (
+                  <li>
+                    <a href={item.href}>{item.label}</a>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          </>
+        ))
+      }
+    </div>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: color-mix(in srgb, var(--color-bg) 88%, transparent);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .site-header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-block: var(--space-2);
+  }
+
+  .site-header__brand {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.0625rem;
+    text-decoration: none;
+    color: var(--color-ink);
+  }
+
+  .site-header__controls {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+  }
+
+  .site-nav ul {
+    display: flex;
+    gap: var(--space-3);
+  }
+
+  .site-nav a {
+    text-decoration: none;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: var(--color-ink-soft);
+    transition: color 0.15s ease;
+  }
+
+  .site-nav a:hover {
+    color: var(--color-accent);
+  }
+
+  .nav-toggle,
+  .nav-toggle-label {
+    display: none;
+  }
+
+  @media (max-width: 40rem) {
+    .nav-toggle-label {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 2.25rem;
+      height: 2.25rem;
+      cursor: pointer;
+    }
+
+    .nav-toggle-label span,
+    .nav-toggle-label span::before,
+    .nav-toggle-label span::after {
+      content: "";
+      display: block;
+      width: 1.25rem;
+      height: 2px;
+      background: var(--color-ink);
+      position: relative;
+      transition: transform 0.2s ease;
+    }
+
+    .nav-toggle-label span::before {
+      position: absolute;
+      top: -6px;
+    }
+
+    .nav-toggle-label span::after {
+      position: absolute;
+      top: 6px;
+    }
+
+    .site-nav {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: var(--color-bg);
+      border-bottom: 1px solid var(--color-border);
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.25s ease;
+    }
+
+    .site-nav ul {
+      flex-direction: column;
+      gap: 0;
+      padding: var(--space-2) var(--space-3) var(--space-3);
+    }
+
+    .site-nav a {
+      display: block;
+      padding: var(--space-1) 0;
+    }
+
+    .nav-toggle:checked ~ .site-nav {
+      max-height: 20rem;
+    }
+  }
+</style>

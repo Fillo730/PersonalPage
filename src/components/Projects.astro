@@ -1,0 +1,87 @@
+---
+import { content, locales } from "../data/site";
+---
+
+<section id="projects" class="section">
+  <div class="container">
+    {
+      locales.map((lang) => {
+        const t = content[lang].projects;
+        return (
+          <div data-lang-block={lang}>
+            <div class="section-head">
+              <p class="eyebrow">{t.eyebrow}</p>
+              <h2>{t.heading}</h2>
+            </div>
+
+            <div class="projects-grid">
+              {t.items.map((project) => (
+                <article class="card project-card">
+                  <h3>{project.title}</h3>
+                  <p class="project-card__desc">{project.description}</p>
+                  <ul class="project-card__tags">
+                    {project.tags.map((tag) => (
+                      <li class="tag">{tag}</li>
+                    ))}
+                  </ul>
+                  {project.link && (
+                    <a class="project-card__link" href={project.link}>
+                      {project.linkLabel ?? "→"} →
+                    </a>
+                  )}
+                </article>
+              ))}
+            </div>
+          </div>
+        );
+      })
+    }
+  </div>
+</section>
+
+<style>
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    gap: var(--space-3);
+  }
+
+  .project-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  .project-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 6px rgba(28, 26, 23, 0.06), 0 16px 32px rgba(28, 26, 23, 0.08);
+  }
+
+  .project-card h3 {
+    font-size: 1.1875rem;
+  }
+
+  .project-card__desc {
+    color: var(--color-ink-soft);
+    flex-grow: 1;
+  }
+
+  .project-card__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .project-card__link {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--color-accent);
+    text-decoration: none;
+    margin-top: 0.25rem;
+  }
+
+  .project-card__link:hover {
+    text-decoration: underline;
+  }
+</style>
