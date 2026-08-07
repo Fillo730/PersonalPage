@@ -5,6 +5,6 @@ import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://personal-page-eta-six.vercel.app',
+  site: 'https://filippobratti.com',
   integrations: [sitemap()]
 });

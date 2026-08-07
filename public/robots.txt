@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://personal-page-eta-six.vercel.app/sitemap-index.xml
+Sitemap: https://filippobratti.com/sitemap-index.xml
