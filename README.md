@@ -1,46 +1,46 @@
 # Personal Page — Filippo Bratti
 
-Sito personale/CV, multi-pagina, bilingue (IT/EN), costruito con [Astro](https://astro.build).
+Personal/CV site, multi-page, bilingual (IT/EN), built with [Astro](https://astro.build).
 
 **Live:** https://filippobratti.com
 
 ## Stack
 
 - Astro 7 (static output)
-- `@astrojs/sitemap` — sitemap automatica
-- `@vercel/analytics` — analytics su Vercel
-- Nessun framework JS lato client: componenti Astro + script vanilla dove serve (tema, lingua, menu)
+- `@astrojs/sitemap` — automatic sitemap
+- `@vercel/analytics` — analytics on Vercel
+- No client-side JS framework: Astro components + vanilla scripts where needed (theme, language, menu)
 
-## Struttura
+## Structure
 
 ```
 src/
-├── data/site.ts         # tutti i contenuti (IT/EN): testi, esperienze, progetti, CV...
-├── components/          # un componente per sezione (Hero, About, Experience, Projects, Cv, ...)
-├── layouts/Layout.astro # <head> comune: meta tag, SEO, JSON-LD, tema/lingua, View Transitions
-└── pages/                # una pagina per sezione (/experience, /education, /skills, /projects, /cv, /contact)
+├── data/site.ts         # all content (IT/EN): copy, work experience, projects, CV...
+├── components/          # one component per section (Hero, About, Experience, Projects, Cv, ...)
+├── layouts/Layout.astro # shared <head>: meta tags, SEO, JSON-LD, theme/lang, View Transitions
+└── pages/                # one page per section (/experience, /education, /skills, /projects, /cv, /contact)
 public/
-├── logos/                # loghi aziende (esperienza lavorativa)
-├── projects/             # screenshot progetti
+├── logos/                # company logos (work experience)
+├── projects/             # project screenshots
 └── CV_Filippo_Bratti(.pdf|_EN.pdf)
 ```
 
-## Come funziona IT/EN
+## How IT/EN works
 
-Niente routing per lingua: ogni pagina renderizza **entrambe** le lingue nel markup (blocchi `data-lang-block="it"|"en"`), e il CSS mostra solo quella attiva in base a `data-lang` su `<html>`. La scelta si salva in `localStorage` (vedi `LangSwitch.astro` e `Layout.astro`). Stesso meccanismo per il tema chiaro/scuro.
+No per-language routing: every page renders **both** languages in the markup (`data-lang-block="it"|"en"` blocks), and CSS shows only the active one based on `data-lang` on `<html>`. The choice is saved in `localStorage` (see `LangSwitch.astro` and `Layout.astro`). Same mechanism for light/dark theme.
 
-Per aggiungere o modificare contenuti: **modifica solo `src/data/site.ts`**, ricordandoti di aggiornare sia il blocco `it` che `en`.
+To add or edit content: **only edit `src/data/site.ts`**, remembering to update both the `it` and `en` blocks.
 
-## Comandi
+## Commands
 
 ```sh
-npm install       # installa le dipendenze
-npm run dev       # dev server su localhost:4321
-npm run build     # build di produzione in ./dist
-npm run preview   # anteprima della build
+npm install       # install dependencies
+npm run dev       # dev server at localhost:4321
+npm run build     # production build into ./dist
+npm run preview   # preview the build
 npx astro check   # type-check
 ```
 
 ## Deploy
 
-Push su `main` → deploy automatico su Vercel. Se cambia il dominio, aggiorna `site` in `astro.config.mjs` e la riga `Sitemap:` in `public/robots.txt`.
+Push to `main` → automatic deploy on Vercel. If the domain changes, update `site` in `astro.config.mjs` and the `Sitemap:` line in `public/robots.txt`.
