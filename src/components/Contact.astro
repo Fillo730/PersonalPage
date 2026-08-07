@@ -20,11 +20,6 @@ import { content, locales, person, socials } from "../data/site";
               <a class="btn btn--primary" href={`mailto:${person.email}`}>
                 {person.email}
               </a>
-              {person.phone && (
-                <a class="btn btn--ghost" href={`tel:${person.phone.replace(/\s+/g, "")}`}>
-                  {person.phone}
-                </a>
-              )}
               {socials.map((social) => (
                 <a
                   class="btn btn--ghost"

@@ -1,0 +1,17 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Skills from "../components/Skills.astro";
+import Footer from "../components/Footer.astro";
+import { content, defaultLocale, person } from "../data/site";
+
+const title = `${content[defaultLocale].skills.heading} — ${person.name}`;
+---
+
+<Layout title={title}>
+  <Header />
+  <main>
+    <Skills />
+  </main>
+  <Footer />
+</Layout>

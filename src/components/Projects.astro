@@ -17,7 +17,12 @@ import { content, locales } from "../data/site";
             <div class="projects-grid">
               {t.items.map((project) => (
                 <article class="card project-card">
-                  <h3>{project.title}</h3>
+                  <div class="project-card__head">
+                    <h3>{project.title}</h3>
+                    {project.inProgress && (
+                      <span class="project-card__badge">{t.inProgressLabel}</span>
+                    )}
+                  </div>
                   <p class="project-card__desc">{project.description}</p>
                   <ul class="project-card__tags">
                     {project.tags.map((tag) => (
@@ -58,8 +63,27 @@ import { content, locales } from "../data/site";
     box-shadow: 0 4px 6px rgba(28, 26, 23, 0.06), 0 16px 32px rgba(28, 26, 23, 0.08);
   }
 
+  .project-card__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+
   .project-card h3 {
     font-size: 1.1875rem;
+  }
+
+  .project-card__badge {
+    flex-shrink: 0;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    background: var(--color-accent-soft);
+    border-radius: 999px;
+    padding: 0.25em 0.75em;
   }
 
   .project-card__desc {

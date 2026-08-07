@@ -6,7 +6,6 @@ export const defaultLocale: Locale = "it";
 export const person = {
   name: "Filippo Bratti",
   email: "filippobratti3@gmail.com",
-  phone: "+39 320 288 6459",
   cvUrl: "/cv.pdf",
   avatarInitials: "FB",
 };
@@ -17,9 +16,8 @@ export type SocialLink = {
 };
 
 export const socials: SocialLink[] = [
-  // TODO: sostituisci con i tuoi profili reali (non presenti nel CV caricato).
-  { label: "LinkedIn", url: "https://www.linkedin.com/in/tuo-profilo" },
-  { label: "GitHub", url: "https://github.com/tuo-utente" },
+  { label: "LinkedIn", url: "https://www.linkedin.com/in/filippobratti/" },
+  { label: "GitHub", url: "https://github.com/Fillo730" },
 ];
 
 export type ExperienceItem = {
@@ -41,6 +39,7 @@ export type Project = {
   tags: string[];
   link?: string;
   linkLabel?: string;
+  inProgress?: boolean;
 };
 
 export type LocaleContent = {
@@ -51,14 +50,18 @@ export type LocaleContent = {
     role: string;
     tagline: string;
     ctaContact: string;
-    ctaCv: string;
   };
   about: {
     eyebrow: string;
     heading: string;
     paragraphs: string[];
   };
-  experience: {
+  work: {
+    eyebrow: string;
+    heading: string;
+    items: ExperienceItem[];
+  };
+  education: {
     eyebrow: string;
     heading: string;
     items: ExperienceItem[];
@@ -71,7 +74,14 @@ export type LocaleContent = {
   projects: {
     eyebrow: string;
     heading: string;
+    inProgressLabel: string;
     items: Project[];
+  };
+  cv: {
+    eyebrow: string;
+    heading: string;
+    intro: string;
+    downloadLabel: string;
   };
   contact: {
     eyebrow: string;
@@ -91,11 +101,13 @@ export const content: Record<Locale, LocaleContent> = {
         "Sviluppatore full-stack neolaureato in Ingegneria Informatica, esperienza in progetti front-end e back-end.",
     },
     nav: [
-      { label: "Chi sono", href: "#about" },
-      { label: "Percorso", href: "#experience" },
-      { label: "Competenze", href: "#skills" },
-      { label: "Progetti", href: "#projects" },
-      { label: "Contatti", href: "#contact" },
+      { label: "Chi sono", href: "/#about" },
+      { label: "Esperienza", href: "/experience" },
+      { label: "Formazione", href: "/education" },
+      { label: "Competenze", href: "/skills" },
+      { label: "Progetti", href: "/projects" },
+      { label: "CV", href: "/cv" },
+      { label: "Contatti", href: "/contact" },
     ],
     hero: {
       location: "Bologna, Italia",
@@ -103,7 +115,6 @@ export const content: Record<Locale, LocaleContent> = {
       tagline:
         "Sviluppo applicazioni web front-end e back-end con tecnologie moderne, dall'idea alla produzione.",
       ctaContact: "Contattami",
-      ctaCv: "Scarica CV",
     },
     about: {
       eyebrow: "Chi sono",
@@ -114,10 +125,18 @@ export const content: Record<Locale, LocaleContent> = {
         "Al di fuori del lavoro mi dedico ad attività sportive e continuo a seguire da vicino le nuove tecnologie del mondo web.",
       ],
     },
-    experience: {
-      eyebrow: "Percorso",
-      heading: "Percorso formativo e professionale",
+    work: {
+      eyebrow: "Esperienza",
+      heading: "Esperienza lavorativa",
       items: [
+        {
+          role: "Software Engineer / Sviluppatore Full-Stack",
+          organization: "Cybertec S.R.L. / Gruppo Zucchetti",
+          period: "04/2026 — in corso",
+          description:
+            "Sviluppo di un MES (Manufacturing Execution System) per il settore industriale, con JavaScript lato front-end e .NET C# lato back-end.",
+          tags: ["JavaScript", ".NET / C#", "MES"],
+        },
         {
           role: "Stage consulente informatico",
           organization: "SI2001",
@@ -133,6 +152,19 @@ export const content: Record<Locale, LocaleContent> = {
           description:
             "Sviluppo front-end / back-end utilizzando tecnologie come Blazor (ASP.NET), React/Astro, C#, linguaggi front-end (HTML, CSS, JS), MongoDB e Git (BitBucket).",
           tags: ["Blazor (ASP.NET)", "React / Astro", "C#", "MongoDB", "Git"],
+        },
+      ],
+    },
+    education: {
+      eyebrow: "Formazione",
+      heading: "Percorso formativo",
+      items: [
+        {
+          role: "Laurea magistrale in Ingegneria Informatica",
+          organization: "Università di Bologna",
+          period: "2025 — in corso",
+          description:
+            "Percorso da studente lavoratore: proseguo gli studi in parallelo all'attività professionale.",
         },
         {
           role: "Laurea triennale in Ingegneria Informatica",
@@ -199,32 +231,39 @@ export const content: Record<Locale, LocaleContent> = {
     projects: {
       eyebrow: "Portfolio",
       heading: "Progetti",
+      inProgressLabel: "In sviluppo",
       items: [
         {
-          title: "Nome Progetto Uno",
+          title: "MovieWorld",
           description:
-            "Descrizione sintetica del progetto: il problema affrontato, l'approccio adottato e il risultato ottenuto.",
-          tags: ["Tag 1", "Tag 2"],
-          link: "#",
-          linkLabel: "Vedi il progetto",
+            "Piattaforma e-commerce full-stack per la vendita di film: catalogo con ricerca e filtri avanzati, carrello, checkout multi-punto vendita, area utente con ordini/recensioni/wishlist e pannello di amministrazione con dashboard statistiche. Backend .NET a livelli (repository/service/mapper) con test unitari, frontend Angular.",
+          tags: ["Angular", ".NET / C#", "SQL", "Docker"],
+          link: "https://movieworld-9msm.onrender.com",
+          linkLabel: "Demo live",
         },
         {
-          title: "Nome Progetto Due",
+          title: "Memory Game",
           description:
-            "Descrizione sintetica del progetto: il problema affrontato, l'approccio adottato e il risultato ottenuto.",
-          tags: ["Tag 3", "Tag 4"],
-          link: "#",
-          linkLabel: "Vedi il progetto",
+            "Gioco di memoria web con account utente, punteggi salvati, classifica globale, achievement, sistema di amici, temi chiaro/scuro e localizzazione in più lingue. Backend .NET con test unitari sulla logica di gioco, frontend Angular, containerizzato con Docker.",
+          tags: ["Angular", ".NET / C#", "Docker"],
+          link: "https://memorygame-xrxa.onrender.com",
+          linkLabel: "Demo live",
         },
         {
-          title: "Nome Progetto Tre",
+          title: "EasyCid",
           description:
-            "Descrizione sintetica del progetto: il problema affrontato, l'approccio adottato e il risultato ottenuto.",
-          tags: ["Tag 5", "Tag 6"],
-          link: "#",
-          linkLabel: "Vedi il progetto",
+            "App per automatizzare e velocizzare lo scambio di informazioni tra automobilisti in caso di sinistro: compilazione del CID (Constatazione Amichevole) con scambio dei dati tramite QR code. Backend .NET, frontend mobile in React Native.",
+          tags: ["React Native", ".NET / C#"],
+          inProgress: true,
         },
       ],
+    },
+    cv: {
+      eyebrow: "CV",
+      heading: "Curriculum",
+      intro:
+        "Qui trovi il mio curriculum aggiornato in PDF, con il riepilogo completo di percorso formativo, esperienze lavorative e competenze.",
+      downloadLabel: "Scarica il CV",
     },
     contact: {
       eyebrow: "Contatti",
@@ -243,11 +282,13 @@ export const content: Record<Locale, LocaleContent> = {
         "Full-stack developer, Computer Engineering graduate, experienced in front-end and back-end projects.",
     },
     nav: [
-      { label: "About", href: "#about" },
-      { label: "Experience", href: "#experience" },
-      { label: "Skills", href: "#skills" },
-      { label: "Projects", href: "#projects" },
-      { label: "Contact", href: "#contact" },
+      { label: "About", href: "/#about" },
+      { label: "Experience", href: "/experience" },
+      { label: "Education", href: "/education" },
+      { label: "Skills", href: "/skills" },
+      { label: "Projects", href: "/projects" },
+      { label: "CV", href: "/cv" },
+      { label: "Contact", href: "/contact" },
     ],
     hero: {
       location: "Bologna, Italy",
@@ -255,7 +296,6 @@ export const content: Record<Locale, LocaleContent> = {
       tagline:
         "Building front-end and back-end web applications with modern technologies, from idea to production.",
       ctaContact: "Get in touch",
-      ctaCv: "Download CV",
     },
     about: {
       eyebrow: "About",
@@ -266,10 +306,18 @@ export const content: Record<Locale, LocaleContent> = {
         "Outside of work, I enjoy sports and keep up closely with new technologies in the web development world.",
       ],
     },
-    experience: {
-      eyebrow: "Path",
-      heading: "Education & professional path",
+    work: {
+      eyebrow: "Experience",
+      heading: "Work experience",
       items: [
+        {
+          role: "Software Engineer / Full-Stack Developer",
+          organization: "Cybertec S.R.L. / Gruppo Zucchetti",
+          period: "04/2026 — present",
+          description:
+            "Development of a MES (Manufacturing Execution System) for the industrial sector, using JavaScript on the front end and .NET C# on the back end.",
+          tags: ["JavaScript", ".NET / C#", "MES"],
+        },
         {
           role: "IT Consultant Intern",
           organization: "SI2001",
@@ -285,6 +333,19 @@ export const content: Record<Locale, LocaleContent> = {
           description:
             "Front-end / back-end development using technologies such as Blazor (ASP.NET), React/Astro, C#, front-end languages (HTML, CSS, JS), MongoDB and Git (BitBucket).",
           tags: ["Blazor (ASP.NET)", "React / Astro", "C#", "MongoDB", "Git"],
+        },
+      ],
+    },
+    education: {
+      eyebrow: "Education",
+      heading: "Education path",
+      items: [
+        {
+          role: "Master's Degree in Computer Engineering",
+          organization: "University of Bologna",
+          period: "2025 — present",
+          description:
+            "Working-student path: continuing my studies alongside my professional activity.",
         },
         {
           role: "Bachelor's Degree in Computer Engineering",
@@ -346,32 +407,39 @@ export const content: Record<Locale, LocaleContent> = {
     projects: {
       eyebrow: "Portfolio",
       heading: "Projects",
+      inProgressLabel: "In development",
       items: [
         {
-          title: "Project Name One",
+          title: "MovieWorld",
           description:
-            "Short project description: the problem tackled, the approach taken, and the result achieved.",
-          tags: ["Tag 1", "Tag 2"],
-          link: "#",
-          linkLabel: "View project",
+            "Full-stack e-commerce platform for selling movies: catalog with search and advanced filters, cart, multi-store checkout, a user area with orders/reviews/wishlist, and an admin panel with a statistics dashboard. Layered .NET backend (repository/service/mapper) with unit tests, Angular frontend.",
+          tags: ["Angular", ".NET / C#", "SQL", "Docker"],
+          link: "https://movieworld-9msm.onrender.com",
+          linkLabel: "Live demo",
         },
         {
-          title: "Project Name Two",
+          title: "Memory Game",
           description:
-            "Short project description: the problem tackled, the approach taken, and the result achieved.",
-          tags: ["Tag 3", "Tag 4"],
-          link: "#",
-          linkLabel: "View project",
+            "Web-based memory game with user accounts, saved scores, a global leaderboard, achievements, a friends system, dark/light themes and multi-language localization. .NET backend with unit tests on the game logic, Angular frontend, containerized with Docker.",
+          tags: ["Angular", ".NET / C#", "Docker"],
+          link: "https://memorygame-xrxa.onrender.com",
+          linkLabel: "Live demo",
         },
         {
-          title: "Project Name Three",
+          title: "EasyCid",
           description:
-            "Short project description: the problem tackled, the approach taken, and the result achieved.",
-          tags: ["Tag 5", "Tag 6"],
-          link: "#",
-          linkLabel: "View project",
+            "App to automate and speed up the exchange of information between drivers after a car accident: fills in the CID (friendly accident report) form and exchanges data via QR code. .NET backend, React Native mobile frontend.",
+          tags: ["React Native", ".NET / C#"],
+          inProgress: true,
         },
       ],
+    },
+    cv: {
+      eyebrow: "CV",
+      heading: "Resume",
+      intro:
+        "Here you can find my up-to-date resume in PDF, with a full summary of my education, work experience and skills.",
+      downloadLabel: "Download CV",
     },
     contact: {
       eyebrow: "Contact",

@@ -1,12 +1,19 @@
 ---
 import { content, locales } from "../data/site";
+
+interface Props {
+  section: "work" | "education";
+  id: string;
+}
+
+const { section, id } = Astro.props;
 ---
 
-<section id="experience" class="section">
+<section id={id} class="section">
   <div class="container container--narrow">
     {
       locales.map((lang) => {
-        const t = content[lang].experience;
+        const t = content[lang][section];
         return (
           <div data-lang-block={lang}>
             <div class="section-head">
