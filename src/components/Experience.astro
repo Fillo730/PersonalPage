@@ -27,8 +27,20 @@ const { section, id } = Astro.props;
                   <div class="timeline__marker" aria-hidden="true" />
                   <div class="timeline__content">
                     <p class="timeline__period">{item.period}</p>
-                    <h3 class="timeline__role">{item.role}</h3>
-                    <p class="timeline__org">{item.organization}</p>
+                    <div class="timeline__head">
+                      {item.logo && (
+                        <img
+                          class="timeline__logo"
+                          src={item.logo}
+                          alt={item.organization}
+                          loading="lazy"
+                        />
+                      )}
+                      <div>
+                        <h3 class="timeline__role">{item.role}</h3>
+                        <p class="timeline__org">{item.organization}</p>
+                      </div>
+                    </div>
                     <p class="timeline__desc">{item.description}</p>
                     {item.tags && (
                       <ul class="timeline__tags">
@@ -36,6 +48,20 @@ const { section, id } = Astro.props;
                           <li class="tag">{tag}</li>
                         ))}
                       </ul>
+                    )}
+                    {item.subjectGroups && (
+                      <div class="timeline__subjects">
+                        {item.subjectGroups.map((group) => (
+                          <details class="subject-group">
+                            <summary>{group.label}</summary>
+                            <ul>
+                              {group.subjects.map((subject) => (
+                                <li>{subject}</li>
+                              ))}
+                            </ul>
+                          </details>
+                        ))}
+                      </div>
                     )}
                   </div>
                 </li>
@@ -83,6 +109,23 @@ const { section, id } = Astro.props;
     margin-bottom: 0.35rem;
   }
 
+  .timeline__head {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .timeline__logo {
+    width: 2.75rem;
+    height: 2.75rem;
+    flex-shrink: 0;
+    object-fit: contain;
+    border-radius: calc(var(--radius) - 4px);
+    border: 1px solid var(--color-border);
+    background: #ffffff;
+    padding: 0.4rem;
+  }
+
   .timeline__role {
     font-size: 1.25rem;
     margin-bottom: 0.15rem;
@@ -91,12 +134,12 @@ const { section, id } = Astro.props;
   .timeline__org {
     color: var(--color-accent);
     font-weight: 500;
-    margin-bottom: 0.6rem;
   }
 
   .timeline__desc {
     color: var(--color-ink-soft);
     max-width: 38rem;
+    margin-top: 0.6rem;
     margin-bottom: 0.75rem;
   }
 
@@ -104,5 +147,60 @@ const { section, id } = Astro.props;
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
+  }
+
+  .timeline__subjects {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    max-width: 38rem;
+    margin-top: 0.75rem;
+  }
+
+  .subject-group {
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    padding: 0.6rem 0.85rem;
+  }
+
+  .subject-group summary {
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.9375rem;
+    color: var(--color-ink);
+    list-style: none;
+  }
+
+  .subject-group summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .subject-group summary::before {
+    content: "+";
+    display: inline-block;
+    width: 1rem;
+    color: var(--color-accent);
+    font-weight: 700;
+  }
+
+  .subject-group[open] summary::before {
+    content: "−";
+  }
+
+  .subject-group ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin: 0.6rem 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .subject-group li {
+    font-size: 0.8125rem;
+    color: var(--color-ink-soft);
+    background: var(--color-accent-soft);
+    border-radius: 999px;
+    padding: 0.25em 0.75em;
   }
 </style>

@@ -1,8 +1,3 @@
-/* ============================================================================
-   DESIGN TOKENS
-   Palette minimal ed elegante: crema/carbone con un accento terracotta.
-   Supporta automaticamente la dark mode del sistema.
-   ============================================================================ */
 :root {
   --color-bg: #faf8f4;
   --color-bg-elevated: #ffffff;
@@ -34,7 +29,6 @@
   color-scheme: light;
 }
 
-/* Tema di sistema: si applica quando l'utente non ha scelto esplicitamente */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --color-bg: #16140f;
@@ -51,8 +45,6 @@
   }
 }
 
-/* Scelta esplicita dell'utente (bottone tema), salvata in localStorage:
-   ha sempre la priorità sulla preferenza di sistema. */
 :root[data-theme="dark"] {
   --color-bg: #16140f;
   --color-bg-elevated: #1d1a14;

@@ -20,12 +20,19 @@ export const socials: SocialLink[] = [
   { label: "GitHub", url: "https://github.com/Fillo730" },
 ];
 
+export type SubjectGroup = {
+  label: string;
+  subjects: string[];
+};
+
 export type ExperienceItem = {
   role: string;
   organization: string;
   period: string;
   description: string;
   tags?: string[];
+  logo?: string;
+  subjectGroups?: SubjectGroup[];
 };
 
 export type SkillGroup = {
@@ -136,6 +143,7 @@ export const content: Record<Locale, LocaleContent> = {
           description:
             "Sviluppo di un MES (Manufacturing Execution System) per il settore industriale, con JavaScript lato front-end e .NET C# lato back-end.",
           tags: ["JavaScript", ".NET / C#", "MES"],
+          logo: "/logos/cybertec-zucchetti.svg",
         },
         {
           role: "Stage consulente informatico",
@@ -144,6 +152,7 @@ export const content: Record<Locale, LocaleContent> = {
           description:
             "Sviluppo front-end / back-end con tecnologie Angular e Bootstrap lato front-end, .NET C# lato back-end e SQL Server per la persistenza dei dati.",
           tags: ["Angular", "Bootstrap", ".NET / C#", "SQL Server"],
+          logo: "/logos/si2001.png",
         },
         {
           role: "Stage e Freelancer",
@@ -152,6 +161,7 @@ export const content: Record<Locale, LocaleContent> = {
           description:
             "Sviluppo front-end / back-end utilizzando tecnologie come Blazor (ASP.NET), React/Astro, C#, linguaggi front-end (HTML, CSS, JS), MongoDB e Git (BitBucket).",
           tags: ["Blazor (ASP.NET)", "React / Astro", "C#", "MongoDB", "Git"],
+          logo: "/logos/fmi.png",
         },
       ],
     },
@@ -165,6 +175,20 @@ export const content: Record<Locale, LocaleContent> = {
           period: "2025 — in corso",
           description:
             "Percorso da studente lavoratore: proseguo gli studi in parallelo all'attività professionale.",
+          subjectGroups: [
+            {
+              label: "Primo anno",
+              subjects: [
+                "Architetture dei Calcolatori",
+                "Linguaggi e Modelli Computazionali",
+                "Sistemi Concorrenti e Paralleli",
+                "Fondamenti di Intelligenza Artificiale",
+                "Infrastructures for Cloud Computing and Big Data",
+                "Sicurezza dell'Informazione",
+                "Ricerca Operativa",
+              ],
+            },
+          ],
         },
         {
           role: "Laurea triennale in Ingegneria Informatica",
@@ -172,6 +196,47 @@ export const content: Record<Locale, LocaleContent> = {
           period: "2021 — 2025",
           description:
             "Percorso di studi in ingegneria informatica, con approfondimenti in programmazione, basi di dati e sviluppo software.",
+          subjectGroups: [
+            {
+              label: "Primo anno",
+              subjects: [
+                "Analisi Matematica 1",
+                "Analisi Matematica 2",
+                "Fondamenti di Informatica 1",
+                "Fondamenti di Informatica 2",
+                "Geometria e Algebra",
+                "Reti Logiche",
+                "Idoneità Lingua Inglese B2",
+              ],
+            },
+            {
+              label: "Secondo anno",
+              subjects: [
+                "Calcolatori Elettronici",
+                "Fisica Generale",
+                "Matematica Applicata",
+                "Sistemi Informativi",
+                "Economia e Organizzazione Aziendale",
+                "Elettrotecnica",
+                "Fondamenti di Telecomunicazioni",
+                "Sistemi Operativi",
+              ],
+            },
+            {
+              label: "Terzo anno",
+              subjects: [
+                "Controlli Automatici",
+                "Elettronica",
+                "Reti di Calcolatori",
+                "Tecnologie Web",
+                "Ingegneria del Software",
+                "Prova Finale (Tesi)",
+                "Diritto dell'Informatica",
+                "Amministrazione di Sistemi e Sicurezza Informatica",
+                "Laboratorio di Sicurezza Informatica",
+              ],
+            },
+          ],
         },
         {
           role: "Diploma in Elettrotecnica ed Elettronica",
@@ -179,6 +244,25 @@ export const content: Record<Locale, LocaleContent> = {
           period: "2016 — 2021",
           description:
             "Formazione tecnica in elettrotecnica ed elettronica, base per il successivo percorso in ingegneria informatica.",
+          subjectGroups: [
+            {
+              label: "Piano di studi",
+              subjects: [
+                "Italiano",
+                "Storia",
+                "Inglese",
+                "Matematica",
+                "Fisica",
+                "Chimica",
+                "Diritto ed Economia",
+                "Elettrotecnica",
+                "Elettronica",
+                "Sistemi Automatici",
+                "Tecnologie e Progettazione di Sistemi Elettrici ed Elettronici",
+                "Scienze Motorie",
+              ],
+            },
+          ],
         },
       ],
     },
@@ -317,6 +401,7 @@ export const content: Record<Locale, LocaleContent> = {
           description:
             "Development of a MES (Manufacturing Execution System) for the industrial sector, using JavaScript on the front end and .NET C# on the back end.",
           tags: ["JavaScript", ".NET / C#", "MES"],
+          logo: "/logos/cybertec-zucchetti.svg",
         },
         {
           role: "IT Consultant Intern",
@@ -325,6 +410,7 @@ export const content: Record<Locale, LocaleContent> = {
           description:
             "Front-end / back-end development with Angular and Bootstrap on the front end, .NET C# on the back end, and SQL Server for data persistence.",
           tags: ["Angular", "Bootstrap", ".NET / C#", "SQL Server"],
+          logo: "/logos/si2001.png",
         },
         {
           role: "Intern & Freelancer",
@@ -333,6 +419,7 @@ export const content: Record<Locale, LocaleContent> = {
           description:
             "Front-end / back-end development using technologies such as Blazor (ASP.NET), React/Astro, C#, front-end languages (HTML, CSS, JS), MongoDB and Git (BitBucket).",
           tags: ["Blazor (ASP.NET)", "React / Astro", "C#", "MongoDB", "Git"],
+          logo: "/logos/fmi.png",
         },
       ],
     },
@@ -346,6 +433,20 @@ export const content: Record<Locale, LocaleContent> = {
           period: "2025 — present",
           description:
             "Working-student path: continuing my studies alongside my professional activity.",
+          subjectGroups: [
+            {
+              label: "First year",
+              subjects: [
+                "Architetture dei Calcolatori",
+                "Linguaggi e Modelli Computazionali",
+                "Sistemi Concorrenti e Paralleli",
+                "Fondamenti di Intelligenza Artificiale",
+                "Infrastructures for Cloud Computing and Big Data",
+                "Sicurezza dell'Informazione",
+                "Ricerca Operativa",
+              ],
+            },
+          ],
         },
         {
           role: "Bachelor's Degree in Computer Engineering",
@@ -353,6 +454,47 @@ export const content: Record<Locale, LocaleContent> = {
           period: "2021 — 2025",
           description:
             "Degree program in computer engineering, with focus on programming, databases, and software development.",
+          subjectGroups: [
+            {
+              label: "First year",
+              subjects: [
+                "Analisi Matematica 1",
+                "Analisi Matematica 2",
+                "Fondamenti di Informatica 1",
+                "Fondamenti di Informatica 2",
+                "Geometria e Algebra",
+                "Reti Logiche",
+                "Idoneità Lingua Inglese B2",
+              ],
+            },
+            {
+              label: "Second year",
+              subjects: [
+                "Calcolatori Elettronici",
+                "Fisica Generale",
+                "Matematica Applicata",
+                "Sistemi Informativi",
+                "Economia e Organizzazione Aziendale",
+                "Elettrotecnica",
+                "Fondamenti di Telecomunicazioni",
+                "Sistemi Operativi",
+              ],
+            },
+            {
+              label: "Third year",
+              subjects: [
+                "Controlli Automatici",
+                "Elettronica",
+                "Reti di Calcolatori",
+                "Tecnologie Web",
+                "Ingegneria del Software",
+                "Prova Finale (Tesi)",
+                "Diritto dell'Informatica",
+                "Amministrazione di Sistemi e Sicurezza Informatica",
+                "Laboratorio di Sicurezza Informatica",
+              ],
+            },
+          ],
         },
         {
           role: "Diploma in Electrical Engineering and Electronics",
@@ -360,6 +502,29 @@ export const content: Record<Locale, LocaleContent> = {
           period: "2016 — 2021",
           description:
             "Technical education in electrical engineering and electronics, foundation for the later path in computer engineering.",
+          subjectGroups: [
+            {
+              label: "Curriculum",
+              subjects: [
+                "Italiano",
+                "Storia",
+                "Inglese",
+                "Matematica",
+                "Fisica",
+                "Chimica",
+                "Diritto ed Economia",
+                "Scienze della Terra e Biologia",
+                "Tecnologie e Tecniche di Rappresentazione Grafica",
+                "Tecnologie Informatiche",
+                "Elettrotecnica",
+                "Elettronica",
+                "Sistemi Automatici",
+                "Tecnologie e Progettazione di Sistemi Elettrici ed Elettronici",
+                "Complementi di Matematica",
+                "Scienze Motorie",
+              ],
+            },
+          ],
         },
       ],
     },
