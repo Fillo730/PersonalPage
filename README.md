@@ -1,44 +1,46 @@
-# Astro Starter Kit: Minimal
+# Personal Page — Filippo Bratti
+
+Sito personale/CV, multi-pagina, bilingue (IT/EN), costruito con [Astro](https://astro.build).
+
+**Live:** https://filippobratti.com
+
+## Stack
+
+- Astro 7 (static output)
+- `@astrojs/sitemap` — sitemap automatica
+- `@vercel/analytics` — analytics su Vercel
+- Nessun framework JS lato client: componenti Astro + script vanilla dove serve (tema, lingua, menu)
+
+## Struttura
+
+```
+src/
+├── data/site.ts         # tutti i contenuti (IT/EN): testi, esperienze, progetti, CV...
+├── components/          # un componente per sezione (Hero, About, Experience, Projects, Cv, ...)
+├── layouts/Layout.astro # <head> comune: meta tag, SEO, JSON-LD, tema/lingua, View Transitions
+└── pages/                # una pagina per sezione (/experience, /education, /skills, /projects, /cv, /contact)
+public/
+├── logos/                # loghi aziende (esperienza lavorativa)
+├── projects/             # screenshot progetti
+└── CV_Filippo_Bratti(.pdf|_EN.pdf)
+```
+
+## Come funziona IT/EN
+
+Niente routing per lingua: ogni pagina renderizza **entrambe** le lingue nel markup (blocchi `data-lang-block="it"|"en"`), e il CSS mostra solo quella attiva in base a `data-lang` su `<html>`. La scelta si salva in `localStorage` (vedi `LangSwitch.astro` e `Layout.astro`). Stesso meccanismo per il tema chiaro/scuro.
+
+Per aggiungere o modificare contenuti: **modifica solo `src/data/site.ts`**, ricordandoti di aggiornare sia il blocco `it` che `en`.
+
+## Comandi
 
 ```sh
-npm create astro@latest -- --template minimal
+npm install       # installa le dipendenze
+npm run dev       # dev server su localhost:4321
+npm run build     # build di produzione in ./dist
+npm run preview   # anteprima della build
+npx astro check   # type-check
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Deploy
 
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
-
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
-
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
-# PersonalPage
+Push su `main` → deploy automatico su Vercel. Se cambia il dominio, aggiorna `site` in `astro.config.mjs` e la riga `Sitemap:` in `public/robots.txt`.
