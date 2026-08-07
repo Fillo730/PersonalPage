@@ -1,25 +1,12 @@
-// ============================================================================
-// CONTENUTI DEL SITO (IT / EN)
-// ----------------------------------------------------------------------------
-// Tutti i testi della pagina sono centralizzati qui, per entrambe le lingue.
-// Modifica questo file per personalizzare il sito: nome, bio, esperienze,
-// competenze, progetti, contatti. I componenti in src/components/ leggono
-// questi dati in base alla lingua attiva.
-// La sezione "projects" è ancora PLACEHOLDER: il CV caricato non elenca
-// progetti nominati, sostituiscili con i tuoi progetti reali.
-// ============================================================================
-
 export type Locale = "it" | "en";
 
 export const locales: Locale[] = ["it", "en"];
 export const defaultLocale: Locale = "it";
 
-// Dati condivisi tra le lingue (nomi propri, contatti, link).
 export const person = {
   name: "Filippo Bratti",
   email: "filippobratti3@gmail.com",
   phone: "+39 320 288 6459",
-  // Percorso del CV in /public.
   cvUrl: "/cv.pdf",
   avatarInitials: "FB",
 };

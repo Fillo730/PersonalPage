@@ -1,80 +1,205 @@
 ---
-// Selettore lingua IT/EN con bandierine. Lo stato viene salvato in
+// Selettore lingua IT/EN a dropdown. Lo stato viene salvato in
 // localStorage; senza una preferenza salvata la lingua predefinita è
 // l'italiano (vedi defaultLocale in src/data/site.ts).
+const options = [
+  { lang: "it", flag: "🇮🇹", label: "Italiano" },
+  { lang: "en", flag: "🇬🇧", label: "English" },
+] as const;
 ---
 
-<div class="lang-switch" role="group" aria-label="Cambia lingua / Change language">
+<div class="lang-dropdown" data-lang-dropdown>
   <button
     type="button"
-    class="lang-btn"
-    data-lang-btn="it"
-    aria-label="Italiano"
-    title="Italiano"
+    class="lang-trigger"
+    data-lang-trigger
+    aria-haspopup="listbox"
+    aria-expanded="false"
+    aria-label="Cambia lingua / Change language"
   >
-    <span aria-hidden="true">🇮🇹</span>
+    {
+      options.map((option) => (
+        <span class="lang-trigger__flag" data-lang-flag={option.lang} aria-hidden="true">
+          {option.flag}
+        </span>
+      ))
+    }
+    <svg
+      class="lang-trigger__chevron"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      aria-hidden="true"
+    >
+      <path d="m6 9 6 6 6-6"></path>
+    </svg>
   </button>
-  <button
-    type="button"
-    class="lang-btn"
-    data-lang-btn="en"
-    aria-label="English"
-    title="English"
-  >
-    <span aria-hidden="true">🇬🇧</span>
-  </button>
+
+  <ul class="lang-menu" role="listbox" data-lang-menu>
+    {
+      options.map((option) => (
+        <li role="presentation" data-lang-option={option.lang}>
+          <button type="button" role="option" data-lang-btn={option.lang}>
+            <span aria-hidden="true">{option.flag}</span>
+            {option.label}
+          </button>
+        </li>
+      ))
+    }
+  </ul>
 </div>
 
 <style>
-  .lang-switch {
-    display: flex;
-    align-items: center;
-    gap: 0.25rem;
+  .lang-dropdown {
+    position: relative;
   }
 
-  .lang-btn {
+  .lang-trigger {
     display: inline-flex;
     align-items: center;
-    justify-content: center;
-    width: 2.25rem;
+    gap: 0.35rem;
     height: 2.25rem;
-    border-radius: 50%;
-    border: 1px solid transparent;
+    padding-inline: 0.65rem;
+    border-radius: 999px;
+    border: 1px solid var(--color-border-strong);
     background: transparent;
+    color: var(--color-ink-soft);
     cursor: pointer;
     font-size: 1.0625rem;
     line-height: 1;
-    opacity: 0.4;
-    filter: grayscale(60%);
-    transition: opacity 0.15s ease, border-color 0.15s ease, filter 0.15s ease,
-      transform 0.15s ease;
+    transition: border-color 0.15s ease, color 0.15s ease, transform 0.15s ease;
   }
 
-  .lang-btn:hover {
-    opacity: 1;
-    filter: grayscale(0%);
+  .lang-trigger:hover {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
     transform: translateY(-1px);
   }
 
-  :root:not([data-lang="en"]) .lang-btn[data-lang-btn="it"],
-  :root[data-lang="en"] .lang-btn[data-lang-btn="en"] {
+  .lang-trigger__flag {
+    display: none;
+  }
+
+  :root:not([data-lang="en"]) .lang-trigger__flag[data-lang-flag="it"],
+  :root[data-lang="en"] .lang-trigger__flag[data-lang-flag="en"] {
+    display: inline-block;
+  }
+
+  .lang-trigger__chevron {
+    width: 0.9rem;
+    height: 0.9rem;
+    transition: transform 0.15s ease;
+  }
+
+  .lang-trigger[aria-expanded="true"] .lang-trigger__chevron {
+    transform: rotate(180deg);
+  }
+
+  .lang-menu {
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    right: 0;
+    min-width: 9rem;
+    margin: 0;
+    padding: 0.35rem;
+    list-style: none;
+    background: var(--color-bg-elevated);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-soft);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-4px);
+    transition: opacity 0.15s ease, transform 0.15s ease, visibility 0.15s ease;
+    z-index: 30;
+  }
+
+  .lang-menu.is-open {
     opacity: 1;
-    filter: grayscale(0%);
-    border-color: var(--color-border-strong);
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .lang-menu li + li {
+    margin-top: 0.15rem;
+  }
+
+  .lang-menu button {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    width: 100%;
+    padding: 0.45rem 0.6rem;
+    border: none;
+    border-radius: calc(var(--radius) - 4px);
+    background: transparent;
+    color: var(--color-ink);
+    font-family: var(--font-body);
+    font-size: 0.9375rem;
+    font-weight: 500;
+    text-align: left;
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+  }
+
+  .lang-menu button:hover {
+    background: var(--color-accent-soft);
+  }
+
+  :root:not([data-lang="en"]) [data-lang-option="it"] button,
+  :root[data-lang="en"] [data-lang-option="en"] button {
+    color: var(--color-accent);
+    background: var(--color-accent-soft);
   }
 </style>
 
 <script>
-  const buttons = document.querySelectorAll<HTMLButtonElement>("[data-lang-btn]");
+  const dropdown = document.querySelector<HTMLDivElement>("[data-lang-dropdown]");
+  const trigger = dropdown?.querySelector<HTMLButtonElement>("[data-lang-trigger]");
+  const menu = dropdown?.querySelector<HTMLUListElement>("[data-lang-menu]");
+  const options = dropdown?.querySelectorAll<HTMLButtonElement>("[data-lang-btn]");
   const root = document.documentElement;
 
-  buttons.forEach((button) => {
+  function closeMenu() {
+    menu?.classList.remove("is-open");
+    trigger?.setAttribute("aria-expanded", "false");
+  }
+
+  function openMenu() {
+    menu?.classList.add("is-open");
+    trigger?.setAttribute("aria-expanded", "true");
+  }
+
+  trigger?.addEventListener("click", (event) => {
+    event.stopPropagation();
+    if (menu?.classList.contains("is-open")) {
+      closeMenu();
+    } else {
+      openMenu();
+    }
+  });
+
+  options?.forEach((button) => {
     button.addEventListener("click", () => {
       const lang = button.dataset.langBtn;
       if (lang !== "it" && lang !== "en") return;
       root.dataset.lang = lang;
       root.lang = lang;
       localStorage.setItem("lang", lang);
+      closeMenu();
     });
+  });
+
+  document.addEventListener("click", (event) => {
+    if (dropdown && !dropdown.contains(event.target as Node)) {
+      closeMenu();
+    }
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") closeMenu();
   });
 </script>

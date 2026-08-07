@@ -9,9 +9,6 @@ import LangSwitch from "./LangSwitch.astro";
     <a href="#top" class="site-header__brand">{person.name}</a>
 
     <div class="site-header__controls">
-      <LangSwitch />
-      <ThemeToggle />
-
       <input type="checkbox" id="nav-toggle" class="nav-toggle" />
       {
         locales.map((lang) => (
@@ -41,11 +38,25 @@ import LangSwitch from "./LangSwitch.astro";
           </>
         ))
       }
+
+      <div class="site-header__side">
+        <LangSwitch />
+        <ThemeToggle />
+      </div>
     </div>
   </div>
 </header>
 
 <style>
+  .site-header__side {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding-inline-start: var(--space-3);
+    margin-inline-start: var(--space-1);
+    border-inline-start: 1px solid var(--color-border);
+  }
+
   .site-header {
     position: sticky;
     top: 0;
