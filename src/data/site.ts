@@ -52,6 +52,7 @@ export type Project = {
 
 export type LocaleContent = {
   meta: { title: string; description: string };
+  skipToContent: string;
   nav: { label: string; href: string }[];
   hero: {
     location: string;
@@ -99,6 +100,12 @@ export type LocaleContent = {
   footer: {
     backToTop: string;
   };
+  notFound: {
+    eyebrow: string;
+    heading: string;
+    message: string;
+    cta: string;
+  };
 };
 
 export const content: Record<Locale, LocaleContent> = {
@@ -108,6 +115,7 @@ export const content: Record<Locale, LocaleContent> = {
       description:
         "Sviluppatore full-stack neolaureato in Ingegneria Informatica, esperienza in progetti front-end e back-end.",
     },
+    skipToContent: "Vai al contenuto",
     nav: [
       { label: "Chi sono", href: "/#about" },
       { label: "Esperienza", href: "/experience" },
@@ -361,6 +369,12 @@ export const content: Record<Locale, LocaleContent> = {
     footer: {
       backToTop: "Torna su ↑",
     },
+    notFound: {
+      eyebrow: "404",
+      heading: "Pagina non trovata",
+      message: "La pagina che cerchi non esiste o è stata spostata.",
+      cta: "Torna alla home",
+    },
   },
   en: {
     meta: {
@@ -368,6 +382,7 @@ export const content: Record<Locale, LocaleContent> = {
       description:
         "Full-stack developer, Computer Engineering graduate, experienced in front-end and back-end projects.",
     },
+    skipToContent: "Skip to content",
     nav: [
       { label: "About", href: "/#about" },
       { label: "Experience", href: "/experience" },
@@ -619,6 +634,12 @@ export const content: Record<Locale, LocaleContent> = {
     },
     footer: {
       backToTop: "Back to top ↑",
+    },
+    notFound: {
+      eyebrow: "404",
+      heading: "Page not found",
+      message: "The page you're looking for doesn't exist or has been moved.",
+      cta: "Back to home",
     },
   },
 };

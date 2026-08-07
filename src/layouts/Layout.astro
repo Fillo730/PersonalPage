@@ -1,7 +1,8 @@
 ---
 import "../styles/global.css";
+import { ClientRouter } from "astro:transitions";
 import Analytics from "@vercel/analytics/astro";
-import { content, defaultLocale } from "../data/site";
+import { content, defaultLocale, locales, person, socials } from "../data/site";
 
 interface Props {
   title?: string;
@@ -12,6 +13,26 @@ const {
   title = content[defaultLocale].meta.title,
   description = content[defaultLocale].meta.description,
 } = Astro.props;
+
+const personJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: person.name,
+  jobTitle: content[defaultLocale].hero.role,
+  description: content[defaultLocale].hero.tagline,
+  url: Astro.site?.href,
+  email: `mailto:${person.email}`,
+  sameAs: socials.map((social) => social.url),
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Bologna",
+    addressCountry: "IT",
+  },
+  alumniOf: {
+    "@type": "CollegeOrUniversity",
+    name: "Università di Bologna",
+  },
+};
 ---
 
 <!doctype html>
@@ -35,6 +56,28 @@ const {
         }
       })();
     </script>
+
+    <script>
+      // Le View Transitions di Astro, a ogni cambio pagina, sostituiscono
+      // tutti gli attributi di <html> con quelli della pagina appena
+      // scaricata (che non conosce ancora la scelta salvata in localStorage,
+      // essendo generata staticamente). Qui copiamo tema e lingua correnti
+      // sul nuovo documento PRIMA che lo scambio avvenga, così la scelta
+      // dell'utente non si perde passando da una pagina all'altra.
+      document.addEventListener("astro:before-swap", (event) => {
+        const currentRoot = document.documentElement;
+        const nextRoot = event.newDocument.documentElement;
+
+        const theme = currentRoot.dataset.theme;
+        if (theme) nextRoot.dataset.theme = theme;
+
+        const lang = currentRoot.dataset.lang;
+        if (lang) {
+          nextRoot.dataset.lang = lang;
+          nextRoot.lang = lang;
+        }
+      });
+    </script>
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
     <meta name="description" content={description} />
@@ -53,6 +96,9 @@ const {
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={new URL("/og-image.png", Astro.site)} />
 
+    <!-- Dati strutturati per i motori di ricerca (schema.org Person) -->
+    <script type="application/ld+json" set:html={JSON.stringify(personJsonLd)} is:inline />
+
     <!-- Google Fonts: Fraunces (titoli) + Inter (testo) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -60,8 +106,17 @@ const {
       href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
+
+    <ClientRouter />
   </head>
   <body id="top">
+    {
+      locales.map((lang) => (
+        <a class="skip-link" href="#main-content" data-lang-block={lang}>
+          {content[lang].skipToContent}
+        </a>
+      ))
+    }
     <slot />
     <Analytics />
   </body>

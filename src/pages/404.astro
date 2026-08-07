@@ -1,0 +1,53 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import { content, locales, defaultLocale, person } from "../data/site";
+
+const title = `${content[defaultLocale].notFound.heading} — ${person.name}`;
+---
+
+<Layout title={title}>
+  <Header />
+  <main id="main-content">
+    <section class="section not-found">
+      <div class="container container--narrow">
+        {
+          locales.map((lang) => {
+            const t = content[lang].notFound;
+            return (
+              <div data-lang-block={lang}>
+                <p class="eyebrow">{t.eyebrow}</p>
+                <h1>{t.heading}</h1>
+                <p class="not-found__message">{t.message}</p>
+                <a class="btn btn--primary" href="/">
+                  {t.cta}
+                </a>
+              </div>
+            );
+          })
+        }
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .not-found {
+    padding-block: var(--space-6);
+    text-align: center;
+  }
+
+  .not-found h1 {
+    font-size: clamp(2rem, 4vw + 1rem, 3rem);
+    margin-bottom: var(--space-2);
+  }
+
+  .not-found__message {
+    color: var(--color-ink-soft);
+    max-width: 30rem;
+    margin-inline: auto;
+    margin-bottom: var(--space-3);
+  }
+</style>

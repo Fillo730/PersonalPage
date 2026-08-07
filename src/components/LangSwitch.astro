@@ -157,43 +157,51 @@ const options = [
 </style>
 
 <script>
-  const dropdown = document.querySelector<HTMLDivElement>("[data-lang-dropdown]");
-  const trigger = dropdown?.querySelector<HTMLButtonElement>("[data-lang-trigger]");
-  const menu = dropdown?.querySelector<HTMLUListElement>("[data-lang-menu]");
-  const options = dropdown?.querySelectorAll<HTMLButtonElement>("[data-lang-btn]");
   const root = document.documentElement;
 
   function closeMenu() {
-    menu?.classList.remove("is-open");
-    trigger?.setAttribute("aria-expanded", "false");
+    document.querySelector<HTMLUListElement>("[data-lang-menu]")?.classList.remove("is-open");
+    document
+      .querySelector<HTMLButtonElement>("[data-lang-trigger]")
+      ?.setAttribute("aria-expanded", "false");
   }
 
   function openMenu() {
-    menu?.classList.add("is-open");
-    trigger?.setAttribute("aria-expanded", "true");
+    document.querySelector<HTMLUListElement>("[data-lang-menu]")?.classList.add("is-open");
+    document
+      .querySelector<HTMLButtonElement>("[data-lang-trigger]")
+      ?.setAttribute("aria-expanded", "true");
   }
 
-  trigger?.addEventListener("click", (event) => {
-    event.stopPropagation();
-    if (menu?.classList.contains("is-open")) {
-      closeMenu();
-    } else {
-      openMenu();
-    }
-  });
+  document.addEventListener("astro:page-load", () => {
+    const dropdown = document.querySelector<HTMLDivElement>("[data-lang-dropdown]");
+    const trigger = dropdown?.querySelector<HTMLButtonElement>("[data-lang-trigger]");
+    const menu = dropdown?.querySelector<HTMLUListElement>("[data-lang-menu]");
+    const options = dropdown?.querySelectorAll<HTMLButtonElement>("[data-lang-btn]");
 
-  options?.forEach((button) => {
-    button.addEventListener("click", () => {
-      const lang = button.dataset.langBtn;
-      if (lang !== "it" && lang !== "en") return;
-      root.dataset.lang = lang;
-      root.lang = lang;
-      localStorage.setItem("lang", lang);
-      closeMenu();
+    trigger?.addEventListener("click", (event) => {
+      event.stopPropagation();
+      if (menu?.classList.contains("is-open")) {
+        closeMenu();
+      } else {
+        openMenu();
+      }
+    });
+
+    options?.forEach((button) => {
+      button.addEventListener("click", () => {
+        const lang = button.dataset.langBtn;
+        if (lang !== "it" && lang !== "en") return;
+        root.dataset.lang = lang;
+        root.lang = lang;
+        localStorage.setItem("lang", lang);
+        closeMenu();
+      });
     });
   });
 
   document.addEventListener("click", (event) => {
+    const dropdown = document.querySelector<HTMLDivElement>("[data-lang-dropdown]");
     if (dropdown && !dropdown.contains(event.target as Node)) {
       closeMenu();
     }
