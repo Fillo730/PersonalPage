@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://filippobratti.com/sitemap-index.xml
+Sitemap: https://www.filippobratti.com/sitemap-index.xml

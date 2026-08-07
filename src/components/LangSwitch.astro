@@ -1,6 +1,4 @@
 ---
-// Selettore lingua IT/EN a dropdown. Ogni opzione è un link reale alla
-// pagina equivalente sotto l'altro prefisso di lingua (/it/... <-> /en/...).
 import type { Locale } from "../data/site";
 
 interface Props {
@@ -171,8 +169,6 @@ const current = options.find((option) => option.lang === lang) ?? options[0];
       ?.setAttribute("aria-expanded", "true");
   }
 
-  // Ri-attacca il listener del trigger a ogni navigazione (le View
-  // Transitions di Astro sostituiscono il DOM senza ricaricare la pagina).
   document.addEventListener("astro:page-load", () => {
     const trigger = document.querySelector<HTMLButtonElement>("[data-lang-trigger]");
     trigger?.addEventListener("click", (event) => {

@@ -55,7 +55,6 @@ const personJsonLd = {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
-    <!-- Applica subito il tema salvato, prima del render, per evitare flash -->
     <script is:inline>
       (function () {
         var storedTheme = localStorage.getItem("theme");
@@ -66,10 +65,6 @@ const personJsonLd = {
     </script>
 
     <script>
-      // Le View Transitions di Astro, a ogni cambio pagina, sostituiscono
-      // tutti gli attributi di <html> con quelli della pagina appena
-      // scaricata. Qui copiamo il tema corrente sul nuovo documento PRIMA
-      // che lo scambio avvenga, così la scelta dell'utente non si perde.
       document.addEventListener("astro:before-swap", (event) => {
         const theme = document.documentElement.dataset.theme;
         if (theme) event.newDocument.documentElement.dataset.theme = theme;
@@ -80,7 +75,6 @@ const personJsonLd = {
     <meta name="description" content={description} />
     <meta name="google-site-verification" content="uG0VlpO9qyBu39z-NWeV7Cs--OdKjz5F0pPzZTnlZzI" />
 
-    <!-- Versioni linguistiche alternative -->
     <link rel="alternate" hreflang="it" href={new URL(itHref, Astro.site)} />
     <link rel="alternate" hreflang="en" href={new URL(enHref, Astro.site)} />
     <link rel="alternate" hreflang="x-default" href={new URL(itHref, Astro.site)} />
@@ -99,10 +93,8 @@ const personJsonLd = {
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={new URL("/og-image.png", Astro.site)} />
 
-    <!-- Dati strutturati per i motori di ricerca (schema.org Person) -->
     <script type="application/ld+json" set:html={JSON.stringify(personJsonLd)} is:inline />
 
-    <!-- Google Fonts: Fraunces (titoli) + Inter (testo) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link

@@ -5,7 +5,7 @@ import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://filippobratti.com',
+  site: 'https://www.filippobratti.com',
   i18n: {
     locales: ['it', 'en'],
     defaultLocale: 'it',
