@@ -47,7 +47,7 @@ const currentPath = stripLocalePrefix(Astro.url.pathname);
           itHref={localePath("it", currentPath)}
           enHref={localePath("en", currentPath)}
         />
-        <ThemeToggle />
+        <ThemeToggle lang={lang} />
       </div>
     </div>
   </div>

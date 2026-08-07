@@ -1,10 +1,15 @@
-<button
-  id="theme-toggle"
-  class="theme-toggle"
-  type="button"
-  aria-label="Cambia tema chiaro/scuro"
-  title="Cambia tema"
->
+---
+import type { Locale } from "../data/site";
+
+interface Props {
+  lang: Locale;
+}
+
+const { lang } = Astro.props;
+const label = lang === "it" ? "Cambia tema chiaro/scuro" : "Switch light/dark theme";
+---
+
+<button id="theme-toggle" class="theme-toggle" type="button" aria-label={label} title={label}>
   <svg
     class="icon icon-sun"
     viewBox="0 0 24 24"
