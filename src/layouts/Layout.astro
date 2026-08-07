@@ -58,12 +58,6 @@ const personJsonLd = {
     </script>
 
     <script>
-      // Le View Transitions di Astro, a ogni cambio pagina, sostituiscono
-      // tutti gli attributi di <html> con quelli della pagina appena
-      // scaricata (che non conosce ancora la scelta salvata in localStorage,
-      // essendo generata staticamente). Qui copiamo tema e lingua correnti
-      // sul nuovo documento PRIMA che lo scambio avvenga, così la scelta
-      // dell'utente non si perde passando da una pagina all'altra.
       document.addEventListener("astro:before-swap", (event) => {
         const currentRoot = document.documentElement;
         const nextRoot = event.newDocument.documentElement;
@@ -81,6 +75,7 @@ const personJsonLd = {
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <meta name="google-site-verification" content="uG0VlpO9qyBu39z-NWeV7Cs--OdKjz5F0pPzZTnlZzI" />
 
     <!-- Open Graph / social sharing -->
     <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
