@@ -6,7 +6,6 @@ export const defaultLocale: Locale = "it";
 export const person = {
   name: "Filippo Bratti",
   email: "filippobratti3@gmail.com",
-  cvUrl: "/cv.pdf",
   avatarInitials: "FB",
 };
 
@@ -91,6 +90,9 @@ export type LocaleContent = {
     heading: string;
     intro: string;
     downloadLabel: string;
+    url: string;
+    altLangLabel: string;
+    altLangUrl: string;
   };
   contact: {
     eyebrow: string;
@@ -359,6 +361,9 @@ export const content: Record<Locale, LocaleContent> = {
       intro:
         "Qui trovi il mio curriculum aggiornato in PDF, con il riepilogo completo di percorso formativo, esperienze lavorative e competenze.",
       downloadLabel: "Scarica il CV",
+      url: "/CV_Filippo_Bratti.pdf",
+      altLangLabel: "Disponibile anche in inglese",
+      altLangUrl: "/CV_Filippo_Bratti_EN.pdf",
     },
     contact: {
       eyebrow: "Contatti",
@@ -625,6 +630,9 @@ export const content: Record<Locale, LocaleContent> = {
       intro:
         "Here you can find my up-to-date resume in PDF, with a full summary of my education, work experience and skills.",
       downloadLabel: "Download CV",
+      url: "/CV_Filippo_Bratti_EN.pdf",
+      altLangLabel: "Also available in Italian",
+      altLangUrl: "/CV_Filippo_Bratti.pdf",
     },
     contact: {
       eyebrow: "Contact",

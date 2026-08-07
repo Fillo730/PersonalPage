@@ -1,5 +1,5 @@
 ---
-import { content, locales, person } from "../data/site";
+import { content, locales } from "../data/site";
 ---
 
 <section id="cv" class="section cv">
@@ -16,12 +16,17 @@ import { content, locales, person } from "../data/site";
 
             <p class="cv__intro">{t.intro}</p>
 
-            <a class="btn btn--primary" href={person.cvUrl} download>
-              {t.downloadLabel}
-            </a>
+            <div class="cv__actions">
+              <a class="btn btn--primary" href={t.url} download>
+                {t.downloadLabel}
+              </a>
+              <a class="cv__alt-lang" href={t.altLangUrl} download>
+                {t.altLangLabel}
+              </a>
+            </div>
 
             <div class="cv__preview">
-              <iframe src={person.cvUrl} title={t.heading} loading="lazy" />
+              <iframe src={t.url} title={t.heading} loading="lazy" />
             </div>
           </div>
         );
@@ -35,6 +40,24 @@ import { content, locales, person } from "../data/site";
     color: var(--color-ink-soft);
     max-width: 32rem;
     margin-bottom: var(--space-3);
+  }
+
+  .cv__actions {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+  }
+
+  .cv__alt-lang {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--color-accent);
+    text-decoration: none;
+  }
+
+  .cv__alt-lang:hover {
+    text-decoration: underline;
   }
 
   .cv__preview {
