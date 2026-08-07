@@ -1,56 +1,56 @@
 ---
-import { content, locales } from "../data/site";
+import { content, type Locale } from "../data/site";
+
+interface Props {
+  lang: Locale;
+}
+
+const { lang } = Astro.props;
+const t = content[lang].projects;
 ---
 
 <section id="projects" class="section">
   <div class="container">
-    {
-      locales.map((lang) => {
-        const t = content[lang].projects;
-        return (
-          <div data-lang-block={lang}>
-            <div class="section-head">
-              <p class="eyebrow">{t.eyebrow}</p>
-              <h2>{t.heading}</h2>
-            </div>
+    <div class="section-head">
+      <p class="eyebrow">{t.eyebrow}</p>
+      <h2>{t.heading}</h2>
+    </div>
 
-            <div class="projects-grid">
-              {t.items.map((project) => (
-                <article class="card project-card">
-                  {project.image && (
-                    <img
-                      class="project-card__image"
-                      src={project.image}
-                      alt={project.title}
-                      loading="lazy"
-                    />
-                  )}
-                  <div class="project-card__body">
-                    <div class="project-card__head">
-                      <h3>{project.title}</h3>
-                      {project.inProgress && (
-                        <span class="project-card__badge">{t.inProgressLabel}</span>
-                      )}
-                    </div>
-                    <p class="project-card__desc">{project.description}</p>
-                    <ul class="project-card__tags">
-                      {project.tags.map((tag) => (
-                        <li class="tag">{tag}</li>
-                      ))}
-                    </ul>
-                    {project.link && (
-                      <a class="project-card__link" href={project.link}>
-                        {project.linkLabel ?? "→"} →
-                      </a>
-                    )}
-                  </div>
-                </article>
-              ))}
+    <div class="projects-grid">
+      {
+        t.items.map((project) => (
+          <article class="card project-card">
+            {project.image && (
+              <img
+                class="project-card__image"
+                src={project.image}
+                alt={project.title}
+                loading="lazy"
+              />
+            )}
+            <div class="project-card__body">
+              <div class="project-card__head">
+                <h3>{project.title}</h3>
+                {project.inProgress && (
+                  <span class="project-card__badge">{t.inProgressLabel}</span>
+                )}
+              </div>
+              <p class="project-card__desc">{project.description}</p>
+              <ul class="project-card__tags">
+                {project.tags.map((tag) => (
+                  <li class="tag">{tag}</li>
+                ))}
+              </ul>
+              {project.link && (
+                <a class="project-card__link" href={project.link}>
+                  {project.linkLabel ?? "→"} →
+                </a>
+              )}
             </div>
-          </div>
-        );
-      })
-    }
+          </article>
+        ))
+      }
+    </div>
   </div>
 </section>
 

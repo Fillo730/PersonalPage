@@ -1,18 +1,18 @@
 ---
-import { content, locales, person } from "../data/site";
+import { content, person, type Locale } from "../data/site";
+
+interface Props {
+  lang: Locale;
+}
+
+const { lang } = Astro.props;
 const year = new Date().getFullYear();
 ---
 
 <footer class="site-footer">
   <div class="container site-footer__inner">
     <p>© {year} {person.name}</p>
-    {
-      locales.map((lang) => (
-        <a href="#top" data-lang-block={lang}>
-          {content[lang].footer.backToTop}
-        </a>
-      ))
-    }
+    <a href="#top">{content[lang].footer.backToTop}</a>
   </div>
 </footer>
 

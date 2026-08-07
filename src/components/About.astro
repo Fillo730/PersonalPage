@@ -1,27 +1,23 @@
 ---
-import { content, locales } from "../data/site";
+import { content, type Locale } from "../data/site";
+
+interface Props {
+  lang: Locale;
+}
+
+const { lang } = Astro.props;
+const t = content[lang].about;
 ---
 
 <section id="about" class="section about">
   <div class="container container--narrow">
-    {
-      locales.map((lang) => {
-        const t = content[lang].about;
-        return (
-          <div data-lang-block={lang}>
-            <div class="section-head">
-              <p class="eyebrow">{t.eyebrow}</p>
-              <h2>{t.heading}</h2>
-            </div>
-            <div class="about__body">
-              {t.paragraphs.map((p) => (
-                <p>{p}</p>
-              ))}
-            </div>
-          </div>
-        );
-      })
-    }
+    <div class="section-head">
+      <p class="eyebrow">{t.eyebrow}</p>
+      <h2>{t.heading}</h2>
+    </div>
+    <div class="about__body">
+      {t.paragraphs.map((p) => <p>{p}</p>)}
+    </div>
   </div>
 </section>
 

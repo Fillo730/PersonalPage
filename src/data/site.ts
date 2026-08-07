@@ -3,6 +3,18 @@ export type Locale = "it" | "en";
 export const locales: Locale[] = ["it", "en"];
 export const defaultLocale: Locale = "it";
 
+/** Prepends the locale prefix to a locale-agnostic path (e.g. "/experience" -> "/it/experience"). */
+export function localePath(lang: Locale, path: string = "/"): string {
+  return `/${lang}${path}`;
+}
+
+/** Strips a leading /it or /en prefix from a pathname, returning the locale-agnostic path. */
+export function stripLocalePrefix(pathname: string): string {
+  const match = pathname.match(/^\/(it|en)(\/.*)?$/);
+  if (!match) return pathname;
+  return match[2] ?? "/";
+}
+
 export const person = {
   name: "Filippo Bratti",
   email: "filippobratti3@gmail.com",

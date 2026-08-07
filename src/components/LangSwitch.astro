@@ -1,11 +1,21 @@
 ---
-// Selettore lingua IT/EN a dropdown. Lo stato viene salvato in
-// localStorage; senza una preferenza salvata la lingua predefinita è
-// l'italiano (vedi defaultLocale in src/data/site.ts).
+// Selettore lingua IT/EN a dropdown. Ogni opzione è un link reale alla
+// pagina equivalente sotto l'altro prefisso di lingua (/it/... <-> /en/...).
+import type { Locale } from "../data/site";
+
+interface Props {
+  lang: Locale;
+  itHref: string;
+  enHref: string;
+}
+
+const { lang, itHref, enHref } = Astro.props;
+
 const options = [
-  { lang: "it", flag: "🇮🇹", label: "Italiano" },
-  { lang: "en", flag: "🇬🇧", label: "English" },
-] as const;
+  { lang: "it" as const, flag: "🇮🇹", label: "Italiano", href: itHref },
+  { lang: "en" as const, flag: "🇬🇧", label: "English", href: enHref },
+];
+const current = options.find((option) => option.lang === lang) ?? options[0];
 ---
 
 <div class="lang-dropdown" data-lang-dropdown>
@@ -17,13 +27,7 @@ const options = [
     aria-expanded="false"
     aria-label="Cambia lingua / Change language"
   >
-    {
-      options.map((option) => (
-        <span class="lang-trigger__flag" data-lang-flag={option.lang} aria-hidden="true">
-          {option.flag}
-        </span>
-      ))
-    }
+    <span aria-hidden="true">{current.flag}</span>
     <svg
       class="lang-trigger__chevron"
       viewBox="0 0 24 24"
@@ -41,11 +45,16 @@ const options = [
   <ul class="lang-menu" role="listbox" data-lang-menu>
     {
       options.map((option) => (
-        <li role="presentation" data-lang-option={option.lang}>
-          <button type="button" role="option" data-lang-btn={option.lang}>
+        <li role="presentation">
+          <a
+            href={option.href}
+            role="option"
+            aria-current={option.lang === lang ? "true" : undefined}
+            class:list={["lang-menu__link", { "is-active": option.lang === lang }]}
+          >
             <span aria-hidden="true">{option.flag}</span>
             {option.label}
-          </button>
+          </a>
         </li>
       ))
     }
@@ -77,15 +86,6 @@ const options = [
     border-color: var(--color-accent);
     color: var(--color-accent);
     transform: translateY(-1px);
-  }
-
-  .lang-trigger__flag {
-    display: none;
-  }
-
-  :root:not([data-lang="en"]) .lang-trigger__flag[data-lang-flag="it"],
-  :root[data-lang="en"] .lang-trigger__flag[data-lang-flag="en"] {
-    display: inline-block;
   }
 
   .lang-trigger__chevron {
@@ -127,7 +127,7 @@ const options = [
     margin-top: 0.15rem;
   }
 
-  .lang-menu button {
+  .lang-menu__link {
     display: flex;
     align-items: center;
     gap: 0.6rem;
@@ -141,24 +141,22 @@ const options = [
     font-size: 0.9375rem;
     font-weight: 500;
     text-align: left;
+    text-decoration: none;
     cursor: pointer;
     transition: background-color 0.15s ease;
   }
 
-  .lang-menu button:hover {
+  .lang-menu__link:hover {
     background: var(--color-accent-soft);
   }
 
-  :root:not([data-lang="en"]) [data-lang-option="it"] button,
-  :root[data-lang="en"] [data-lang-option="en"] button {
+  .lang-menu__link.is-active {
     color: var(--color-accent);
     background: var(--color-accent-soft);
   }
 </style>
 
 <script>
-  const root = document.documentElement;
-
   function closeMenu() {
     document.querySelector<HTMLUListElement>("[data-lang-menu]")?.classList.remove("is-open");
     document
@@ -173,30 +171,18 @@ const options = [
       ?.setAttribute("aria-expanded", "true");
   }
 
+  // Ri-attacca il listener del trigger a ogni navigazione (le View
+  // Transitions di Astro sostituiscono il DOM senza ricaricare la pagina).
   document.addEventListener("astro:page-load", () => {
-    const dropdown = document.querySelector<HTMLDivElement>("[data-lang-dropdown]");
-    const trigger = dropdown?.querySelector<HTMLButtonElement>("[data-lang-trigger]");
-    const menu = dropdown?.querySelector<HTMLUListElement>("[data-lang-menu]");
-    const options = dropdown?.querySelectorAll<HTMLButtonElement>("[data-lang-btn]");
-
+    const trigger = document.querySelector<HTMLButtonElement>("[data-lang-trigger]");
     trigger?.addEventListener("click", (event) => {
       event.stopPropagation();
+      const menu = document.querySelector<HTMLUListElement>("[data-lang-menu]");
       if (menu?.classList.contains("is-open")) {
         closeMenu();
       } else {
         openMenu();
       }
-    });
-
-    options?.forEach((button) => {
-      button.addEventListener("click", () => {
-        const lang = button.dataset.langBtn;
-        if (lang !== "it" && lang !== "en") return;
-        root.dataset.lang = lang;
-        root.lang = lang;
-        localStorage.setItem("lang", lang);
-        closeMenu();
-      });
     });
   });
 

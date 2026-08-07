@@ -15,10 +15,15 @@ Personal/CV site, multi-page, bilingual (IT/EN), built with [Astro](https://astr
 
 ```
 src/
-├── data/site.ts         # all content (IT/EN): copy, work experience, projects, CV...
+├── data/site.ts         # all content (IT/EN): copy, work experience, projects, CV, plus
+│                         # localePath()/stripLocalePrefix() helpers for locale-aware links
 ├── components/          # one component per section (Hero, About, Experience, Projects, Cv, ...)
-├── layouts/Layout.astro # shared <head>: meta tags, SEO, JSON-LD, theme/lang, View Transitions
-└── pages/                # one page per section (/experience, /education, /skills, /projects, /cv, /contact)
+│                         # every component takes a `lang` prop and renders a single language
+├── layouts/Layout.astro # shared <head>: meta tags, SEO, JSON-LD, hreflang, theme, View Transitions
+└── pages/
+    ├── it/               # Italian routes: /it/, /it/experience, /it/education, ...
+    ├── en/                # English routes: /en/, /en/experience, /en/education, ...
+    └── 404.astro          # fallback for URLs outside /it and /en
 public/
 ├── logos/                # company logos (work experience)
 ├── projects/             # project screenshots
@@ -27,7 +32,7 @@ public/
 
 ## How IT/EN works
 
-No per-language routing: every page renders **both** languages in the markup (`data-lang-block="it"|"en"` blocks), and CSS shows only the active one based on `data-lang` on `<html>`. The choice is saved in `localStorage` (see `LangSwitch.astro` and `Layout.astro`). Same mechanism for light/dark theme.
+Real per-language routing via Astro's built-in i18n (`astro.config.mjs`): each page exists once under `src/pages/it/` and once under `src/pages/en/`, both thin wrappers that pass `lang="it"|"en"` down to the shared components. Only the active language is ever rendered/shipped — no client-side hiding. `/` redirects to `/it` (see `vercel.json`). Language switching is a real link to the equivalent page in the other locale (see `LangSwitch.astro`, built with `localePath()`/`stripLocalePrefix()` from `site.ts`). Theme (light/dark) still works client-side via `localStorage`, independent of the language.
 
 To add or edit content: **only edit `src/data/site.ts`**, remembering to update both the `it` and `en` blocks.
 

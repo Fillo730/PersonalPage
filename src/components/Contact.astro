@@ -1,40 +1,35 @@
 ---
-import { content, locales, person, socials } from "../data/site";
+import { content, person, socials, type Locale } from "../data/site";
+
+interface Props {
+  lang: Locale;
+}
+
+const { lang } = Astro.props;
+const t = content[lang].contact;
 ---
 
 <section id="contact" class="section contact">
   <div class="container container--narrow">
-    {
-      locales.map((lang) => {
-        const t = content[lang].contact;
-        return (
-          <div data-lang-block={lang}>
-            <div class="section-head">
-              <p class="eyebrow">{t.eyebrow}</p>
-              <h2>{t.heading}</h2>
-            </div>
+    <div class="section-head">
+      <p class="eyebrow">{t.eyebrow}</p>
+      <h2>{t.heading}</h2>
+    </div>
 
-            <p class="contact__intro">{t.intro}</p>
+    <p class="contact__intro">{t.intro}</p>
 
-            <div class="contact__actions">
-              <a class="btn btn--primary" href={`mailto:${person.email}`}>
-                {person.email}
-              </a>
-              {socials.map((social) => (
-                <a
-                  class="btn btn--ghost"
-                  href={social.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {social.label}
-                </a>
-              ))}
-            </div>
-          </div>
-        );
-      })
-    }
+    <div class="contact__actions">
+      <a class="btn btn--primary" href={`mailto:${person.email}`}>
+        {person.email}
+      </a>
+      {
+        socials.map((social) => (
+          <a class="btn btn--ghost" href={social.url} target="_blank" rel="noopener noreferrer">
+            {social.label}
+          </a>
+        ))
+      }
+    </div>
   </div>
 </section>
 

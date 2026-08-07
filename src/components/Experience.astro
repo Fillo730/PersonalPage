@@ -1,76 +1,71 @@
 ---
-import { content, locales } from "../data/site";
+import { content, type Locale } from "../data/site";
 
 interface Props {
+  lang: Locale;
   section: "work" | "education";
   id: string;
 }
 
-const { section, id } = Astro.props;
+const { lang, section, id } = Astro.props;
+const t = content[lang][section];
 ---
 
 <section id={id} class="section">
   <div class="container container--narrow">
-    {
-      locales.map((lang) => {
-        const t = content[lang][section];
-        return (
-          <div data-lang-block={lang}>
-            <div class="section-head">
-              <p class="eyebrow">{t.eyebrow}</p>
-              <h2>{t.heading}</h2>
-            </div>
+    <div class="section-head">
+      <p class="eyebrow">{t.eyebrow}</p>
+      <h2>{t.heading}</h2>
+    </div>
 
-            <ol class="timeline">
-              {t.items.map((item) => (
-                <li class="timeline__item">
-                  <div class="timeline__marker" aria-hidden="true" />
-                  <div class="timeline__content">
-                    <p class="timeline__period">{item.period}</p>
-                    <div class="timeline__head">
-                      {item.logo && (
-                        <img
-                          class="timeline__logo"
-                          src={item.logo}
-                          alt={item.organization}
-                          loading="lazy"
-                        />
-                      )}
-                      <div>
-                        <h3 class="timeline__role">{item.role}</h3>
-                        <p class="timeline__org">{item.organization}</p>
-                      </div>
-                    </div>
-                    <p class="timeline__desc">{item.description}</p>
-                    {item.tags && (
-                      <ul class="timeline__tags">
-                        {item.tags.map((tag) => (
-                          <li class="tag">{tag}</li>
+    <ol class="timeline">
+      {
+        t.items.map((item) => (
+          <li class="timeline__item">
+            <div class="timeline__marker" aria-hidden="true" />
+            <div class="timeline__content">
+              <p class="timeline__period">{item.period}</p>
+              <div class="timeline__head">
+                {item.logo && (
+                  <img
+                    class="timeline__logo"
+                    src={item.logo}
+                    alt={item.organization}
+                    loading="lazy"
+                  />
+                )}
+                <div>
+                  <h3 class="timeline__role">{item.role}</h3>
+                  <p class="timeline__org">{item.organization}</p>
+                </div>
+              </div>
+              <p class="timeline__desc">{item.description}</p>
+              {item.tags && (
+                <ul class="timeline__tags">
+                  {item.tags.map((tag) => (
+                    <li class="tag">{tag}</li>
+                  ))}
+                </ul>
+              )}
+              {item.subjectGroups && (
+                <div class="timeline__subjects">
+                  {item.subjectGroups.map((group) => (
+                    <details class="subject-group">
+                      <summary>{group.label}</summary>
+                      <ul>
+                        {group.subjects.map((subject) => (
+                          <li>{subject}</li>
                         ))}
                       </ul>
-                    )}
-                    {item.subjectGroups && (
-                      <div class="timeline__subjects">
-                        {item.subjectGroups.map((group) => (
-                          <details class="subject-group">
-                            <summary>{group.label}</summary>
-                            <ul>
-                              {group.subjects.map((subject) => (
-                                <li>{subject}</li>
-                              ))}
-                            </ul>
-                          </details>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                </li>
-              ))}
-            </ol>
-          </div>
-        );
-      })
-    }
+                    </details>
+                  ))}
+                </div>
+              )}
+            </div>
+          </li>
+        ))
+      }
+    </ol>
   </div>
 </section>
 

@@ -1,37 +1,35 @@
 ---
-import { content, locales } from "../data/site";
+import { content, type Locale } from "../data/site";
+
+interface Props {
+  lang: Locale;
+}
+
+const { lang } = Astro.props;
+const t = content[lang].cv;
 ---
 
 <section id="cv" class="section cv">
   <div class="container container--narrow">
-    {
-      locales.map((lang) => {
-        const t = content[lang].cv;
-        return (
-          <div data-lang-block={lang}>
-            <div class="section-head">
-              <p class="eyebrow">{t.eyebrow}</p>
-              <h2>{t.heading}</h2>
-            </div>
+    <div class="section-head">
+      <p class="eyebrow">{t.eyebrow}</p>
+      <h2>{t.heading}</h2>
+    </div>
 
-            <p class="cv__intro">{t.intro}</p>
+    <p class="cv__intro">{t.intro}</p>
 
-            <div class="cv__actions">
-              <a class="btn btn--primary" href={t.url} download>
-                {t.downloadLabel}
-              </a>
-              <a class="cv__alt-lang" href={t.altLangUrl} download>
-                {t.altLangLabel}
-              </a>
-            </div>
+    <div class="cv__actions">
+      <a class="btn btn--primary" href={t.url} download>
+        {t.downloadLabel}
+      </a>
+      <a class="cv__alt-lang" href={t.altLangUrl} download>
+        {t.altLangLabel}
+      </a>
+    </div>
 
-            <div class="cv__preview">
-              <iframe src={t.url} title={t.heading} loading="lazy" />
-            </div>
-          </div>
-        );
-      })
-    }
+    <div class="cv__preview">
+      <iframe src={t.url} title={t.heading} loading="lazy" />
+    </div>
   </div>
 </section>
 

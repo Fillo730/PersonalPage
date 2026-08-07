@@ -1,9 +1,8 @@
 ---
-// Fallback per URL fuori da /it e /en (es. errori di battitura nel path).
-import Layout from "../layouts/Layout.astro";
-import Header from "../components/Header.astro";
-import Footer from "../components/Footer.astro";
-import { content, person, localePath } from "../data/site";
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import { content, person, localePath } from "../../data/site";
 
 const lang = "it" as const;
 const t = content[lang].notFound;

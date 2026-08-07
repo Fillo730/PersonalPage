@@ -1,46 +1,52 @@
 ---
-import { content, locales, person } from "../data/site";
+import { content, person, localePath, stripLocalePrefix, type Locale } from "../data/site";
 import ThemeToggle from "./ThemeToggle.astro";
 import LangSwitch from "./LangSwitch.astro";
+
+interface Props {
+  lang: Locale;
+}
+
+const { lang } = Astro.props;
+const t = content[lang];
+const currentPath = stripLocalePrefix(Astro.url.pathname);
 ---
 
 <header class="site-header">
   <div class="container site-header__inner">
-    <a href="/" class="site-header__brand">{person.name}</a>
+    <a href={localePath(lang, "/")} class="site-header__brand">{person.name}</a>
 
     <div class="site-header__controls">
       <input type="checkbox" id="nav-toggle" class="nav-toggle" />
-      {
-        locales.map((lang) => (
-          <>
-            <label
-              for="nav-toggle"
-              class="nav-toggle-label"
-              data-lang-block={lang}
-              aria-label={lang === "it" ? "Apri il menu" : "Open menu"}
-            >
-              <span />
-            </label>
+      <label
+        for="nav-toggle"
+        class="nav-toggle-label"
+        aria-label={lang === "it" ? "Apri il menu" : "Open menu"}
+      >
+        <span />
+      </label>
 
-            <nav
-              class="site-nav"
-              data-lang-block={lang}
-              aria-label={lang === "it" ? "Sezioni della pagina" : "Page sections"}
-            >
-              <ul>
-                {content[lang].nav.map((item) => (
-                  <li>
-                    <a href={item.href}>{item.label}</a>
-                  </li>
-                ))}
-              </ul>
-            </nav>
-          </>
-        ))
-      }
+      <nav
+        class="site-nav"
+        aria-label={lang === "it" ? "Sezioni della pagina" : "Page sections"}
+      >
+        <ul>
+          {
+            t.nav.map((item) => (
+              <li>
+                <a href={localePath(lang, item.href)}>{item.label}</a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
 
       <div class="site-header__side">
-        <LangSwitch />
+        <LangSwitch
+          lang={lang}
+          itHref={localePath("it", currentPath)}
+          enHref={localePath("en", currentPath)}
+        />
         <ThemeToggle />
       </div>
     </div>

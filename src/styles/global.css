@@ -74,20 +74,6 @@
 }
 
 /* ============================================================================
-   I18N
-   Ogni contenuto testuale viene renderizzato una volta per lingua, dentro un
-   wrapper [data-lang-block="it"|"en"]. La lingua attiva è quella non nascosta,
-   in base all'attributo data-lang sull'elemento <html> (default: italiano).
-   ============================================================================ */
-:root:not([data-lang="en"]) [data-lang-block="en"] {
-  display: none;
-}
-
-:root[data-lang="en"] [data-lang-block="it"] {
-  display: none;
-}
-
-/* ============================================================================
    RESET
    ============================================================================ */
 *,

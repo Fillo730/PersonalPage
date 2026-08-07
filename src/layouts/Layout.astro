@@ -2,25 +2,38 @@
 import "../styles/global.css";
 import { ClientRouter } from "astro:transitions";
 import Analytics from "@vercel/analytics/astro";
-import { content, defaultLocale, locales, person, socials } from "../data/site";
+import {
+  content,
+  person,
+  socials,
+  localePath,
+  stripLocalePrefix,
+  type Locale,
+} from "../data/site";
 
 interface Props {
+  lang: Locale;
   title?: string;
   description?: string;
 }
 
 const {
-  title = content[defaultLocale].meta.title,
-  description = content[defaultLocale].meta.description,
+  lang,
+  title = content[lang].meta.title,
+  description = content[lang].meta.description,
 } = Astro.props;
+
+const currentPath = stripLocalePrefix(Astro.url.pathname);
+const itHref = localePath("it", currentPath);
+const enHref = localePath("en", currentPath);
 
 const personJsonLd = {
   "@context": "https://schema.org",
   "@type": "Person",
   name: person.name,
-  jobTitle: content[defaultLocale].hero.role,
-  description: content[defaultLocale].hero.tagline,
-  url: Astro.site?.href,
+  jobTitle: content[lang].hero.role,
+  description: content[lang].hero.tagline,
+  url: new URL(localePath(lang, "/"), Astro.site).href,
   email: `mailto:${person.email}`,
   sameAs: socials.map((social) => social.url),
   address: {
@@ -36,46 +49,41 @@ const personJsonLd = {
 ---
 
 <!doctype html>
-<html lang={defaultLocale}>
+<html lang={lang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
-    <!-- Applica subito tema e lingua salvati, prima del render, per evitare flash -->
+    <!-- Applica subito il tema salvato, prima del render, per evitare flash -->
     <script is:inline>
       (function () {
         var storedTheme = localStorage.getItem("theme");
         if (storedTheme === "light" || storedTheme === "dark") {
           document.documentElement.dataset.theme = storedTheme;
         }
-        var storedLang = localStorage.getItem("lang");
-        if (storedLang === "it" || storedLang === "en") {
-          document.documentElement.dataset.lang = storedLang;
-          document.documentElement.lang = storedLang;
-        }
       })();
     </script>
 
     <script>
+      // Le View Transitions di Astro, a ogni cambio pagina, sostituiscono
+      // tutti gli attributi di <html> con quelli della pagina appena
+      // scaricata. Qui copiamo il tema corrente sul nuovo documento PRIMA
+      // che lo scambio avvenga, così la scelta dell'utente non si perde.
       document.addEventListener("astro:before-swap", (event) => {
-        const currentRoot = document.documentElement;
-        const nextRoot = event.newDocument.documentElement;
-
-        const theme = currentRoot.dataset.theme;
-        if (theme) nextRoot.dataset.theme = theme;
-
-        const lang = currentRoot.dataset.lang;
-        if (lang) {
-          nextRoot.dataset.lang = lang;
-          nextRoot.lang = lang;
-        }
+        const theme = document.documentElement.dataset.theme;
+        if (theme) event.newDocument.documentElement.dataset.theme = theme;
       });
     </script>
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="google-site-verification" content="uG0VlpO9qyBu39z-NWeV7Cs--OdKjz5F0pPzZTnlZzI" />
+
+    <!-- Versioni linguistiche alternative -->
+    <link rel="alternate" hreflang="it" href={new URL(itHref, Astro.site)} />
+    <link rel="alternate" hreflang="en" href={new URL(enHref, Astro.site)} />
+    <link rel="alternate" hreflang="x-default" href={new URL(itHref, Astro.site)} />
 
     <!-- Open Graph / social sharing -->
     <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
@@ -84,7 +92,7 @@ const personJsonLd = {
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={new URL("/og-image.png", Astro.site)} />
-    <meta property="og:locale" content={defaultLocale === "it" ? "it_IT" : "en_US"} />
+    <meta property="og:locale" content={lang === "it" ? "it_IT" : "en_US"} />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
@@ -105,13 +113,7 @@ const personJsonLd = {
     <ClientRouter />
   </head>
   <body id="top">
-    {
-      locales.map((lang) => (
-        <a class="skip-link" href="#main-content" data-lang-block={lang}>
-          {content[lang].skipToContent}
-        </a>
-      ))
-    }
+    <a class="skip-link" href="#main-content">{content[lang].skipToContent}</a>
     <slot />
     <Analytics />
   </body>
