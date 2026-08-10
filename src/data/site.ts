@@ -97,6 +97,13 @@ export type LocaleContent = {
     inProgressLabel: string;
     items: Project[];
   };
+  freelance: {
+    eyebrow: string;
+    heading: string;
+    description: string;
+    inProgressLabel: string;
+    items: Project[];
+  };
   cv: {
     eyebrow: string;
     heading: string;
@@ -367,6 +374,23 @@ export const content: Record<Locale, LocaleContent> = {
         },
       ],
     },
+    freelance: {
+      eyebrow: "Freelance",
+      heading: "Sviluppo siti web freelance",
+      description:
+        "Oltre ai progetti personali, mi occupo su base freelance della realizzazione di siti web per aziende e attività locali, dalla progettazione alla messa online.",
+      inProgressLabel: "In sviluppo",
+      items: [
+        {
+          title: "Arredamento Due Torri",
+          description:
+            "Sito vetrina per un'azienda di vendita e montaggio di mobili e cucine a domicilio: presentazione dei servizi e del catalogo, sezione contatti e richiesta preventivi.",
+          tags: ["Astro", "TypeScript", "HTML", "CSS"],
+          inProgress: true,
+          image: "/projects/ArredamentoDueTorri.png",
+        },
+      ],
+    },
     cv: {
       eyebrow: "CV",
       heading: "Curriculum",
@@ -633,6 +657,23 @@ export const content: Record<Locale, LocaleContent> = {
             "App to automate and speed up the exchange of information between drivers after a car accident: fills in the CID (friendly accident report) form and exchanges data via QR code. .NET backend, React Native mobile frontend.",
           tags: ["React Native", ".NET / C#"],
           inProgress: true,
+        },
+      ],
+    },
+    freelance: {
+      eyebrow: "Freelance",
+      heading: "Freelance Web Development",
+      description:
+        "Alongside my personal projects, I work freelance building websites for companies and local businesses, from design to launch.",
+      inProgressLabel: "In development",
+      items: [
+        {
+          title: "Arredamento Due Torri",
+          description:
+            "Showcase website for a company selling and installing furniture and kitchens at customers' homes: service and catalog showcase, contact section and quote requests.",
+          tags: ["Astro", "TypeScript", "HTML", "CSS"],
+          inProgress: true,
+          image: "/projects/ArredamentoDueTorri.png",
         },
       ],
     },

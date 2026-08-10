@@ -7,6 +7,7 @@ interface Props {
 
 const { lang } = Astro.props;
 const t = content[lang].projects;
+const f = content[lang].freelance;
 ---
 
 <section id="projects" class="section">
@@ -54,11 +55,69 @@ const t = content[lang].projects;
   </div>
 </section>
 
+<section id="freelance" class="section">
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow">{f.eyebrow}</p>
+      <h2>{f.heading}</h2>
+    </div>
+
+    <p class="freelance__intro">{f.description}</p>
+
+    <div class="projects-grid projects-grid--compact">
+      {
+        f.items.map((project) => (
+          <article class="card project-card">
+            {project.image && (
+              <img
+                class="project-card__image"
+                src={project.image}
+                alt={project.title}
+                loading="lazy"
+              />
+            )}
+            <div class="project-card__body">
+              <div class="project-card__head">
+                <h3>{project.title}</h3>
+                {project.inProgress && (
+                  <span class="project-card__badge">{f.inProgressLabel}</span>
+                )}
+              </div>
+              <p class="project-card__desc">{project.description}</p>
+              <ul class="project-card__tags">
+                {project.tags.map((tag) => (
+                  <li class="tag">{tag}</li>
+                ))}
+              </ul>
+              {project.link && (
+                <a class="project-card__link" href={project.link}>
+                  {project.linkLabel ?? "→"} →
+                </a>
+              )}
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
 <style>
+  .freelance__intro {
+    color: var(--color-ink-soft);
+    max-width: 32rem;
+    margin-bottom: var(--space-3);
+  }
+
   .projects-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
     gap: var(--space-3);
+  }
+
+  .projects-grid--compact {
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 20rem));
+    justify-content: start;
   }
 
   .project-card {
