@@ -2,6 +2,7 @@
 import "../styles/global.css";
 import { ClientRouter } from "astro:transitions";
 import Analytics from "@vercel/analytics/astro";
+import SpeedInsights from "@vercel/speed-insights/astro";
 import {
   content,
   person,
@@ -111,5 +112,6 @@ const personJsonLd = {
     <a class="skip-link" href="#main-content">{content[lang].skipToContent}</a>
     <slot />
     <Analytics />
+    <SpeedInsights />
   </body>
 </html>

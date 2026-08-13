@@ -42,11 +42,23 @@ const f = content[lang].freelance;
                   <li class="tag">{tag}</li>
                 ))}
               </ul>
-              {project.link && (
-                <a class="project-card__link" href={project.link}>
-                  {project.linkLabel ?? "→"} →
-                </a>
-              )}
+              <div class="project-card__links">
+                {project.link && (
+                  <a class="project-card__link" href={project.link}>
+                    {project.linkLabel ?? "→"} →
+                  </a>
+                )}
+                {project.repoUrl && (
+                  <a
+                    class="project-card__link"
+                    href={project.repoUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {project.repoLabel ?? "Codice"} →
+                  </a>
+                )}
+              </div>
             </div>
           </article>
         ))
@@ -89,11 +101,23 @@ const f = content[lang].freelance;
                   <li class="tag">{tag}</li>
                 ))}
               </ul>
-              {project.link && (
-                <a class="project-card__link" href={project.link}>
-                  {project.linkLabel ?? "→"} →
-                </a>
-              )}
+              <div class="project-card__links">
+                {project.link && (
+                  <a class="project-card__link" href={project.link}>
+                    {project.linkLabel ?? "→"} →
+                  </a>
+                )}
+                {project.repoUrl && (
+                  <a
+                    class="project-card__link"
+                    href={project.repoUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {project.repoLabel ?? "Codice"} →
+                  </a>
+                )}
+              </div>
             </div>
           </article>
         ))
@@ -184,12 +208,18 @@ const f = content[lang].freelance;
     gap: 0.4rem;
   }
 
+  .project-card__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin-top: 0.25rem;
+  }
+
   .project-card__link {
     font-size: 0.9375rem;
     font-weight: 600;
     color: var(--color-accent);
     text-decoration: none;
-    margin-top: 0.25rem;
   }
 
   .project-card__link:hover {

@@ -57,6 +57,8 @@ export type Project = {
   tags: string[];
   link?: string;
   linkLabel?: string;
+  repoUrl?: string;
+  repoLabel?: string;
   inProgress?: boolean;
   image?: string;
 };
@@ -354,6 +356,8 @@ export const content: Record<Locale, LocaleContent> = {
           tags: ["Angular", ".NET / C#", "SQL", "Docker"],
           link: "https://movieworld-9msm.onrender.com",
           linkLabel: "Demo live",
+          repoUrl: "https://github.com/Fillo730/MovieWorld",
+          repoLabel: "Codice",
           image: "/projects/movieworld.jpg",
         },
         {
@@ -363,6 +367,8 @@ export const content: Record<Locale, LocaleContent> = {
           tags: ["Angular", ".NET / C#", "Docker"],
           link: "https://memorygame-xrxa.onrender.com",
           linkLabel: "Demo live",
+          repoUrl: "https://github.com/Fillo730/MemoryGame",
+          repoLabel: "Codice",
           image: "/projects/memory-game.jpg",
         },
         {
@@ -640,6 +646,8 @@ export const content: Record<Locale, LocaleContent> = {
           tags: ["Angular", ".NET / C#", "SQL", "Docker"],
           link: "https://movieworld-9msm.onrender.com",
           linkLabel: "Live demo",
+          repoUrl: "https://github.com/Fillo730/MovieWorld",
+          repoLabel: "Code",
           image: "/projects/movieworld.jpg",
         },
         {
@@ -649,6 +657,8 @@ export const content: Record<Locale, LocaleContent> = {
           tags: ["Angular", ".NET / C#", "Docker"],
           link: "https://memorygame-xrxa.onrender.com",
           linkLabel: "Live demo",
+          repoUrl: "https://github.com/Fillo730/MemoryGame",
+          repoLabel: "Code",
           image: "/projects/memory-game.jpg",
         },
         {
