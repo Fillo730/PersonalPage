@@ -392,7 +392,8 @@ export const content: Record<Locale, LocaleContent> = {
           description:
             "Sito vetrina per un'azienda di vendita e montaggio di mobili e cucine a domicilio: presentazione dei servizi e del catalogo, sezione contatti e richiesta preventivi.",
           tags: ["Astro", "TypeScript", "HTML", "CSS"],
-          inProgress: true,
+          link: "https://arredamentiduetorri.com",
+          linkLabel: "Sito live",
           image: "/projects/ArredamentoDueTorri.png",
         },
       ],
@@ -682,7 +683,8 @@ export const content: Record<Locale, LocaleContent> = {
           description:
             "Showcase website for a company selling and installing furniture and kitchens at customers' homes: service and catalog showcase, contact section and quote requests.",
           tags: ["Astro", "TypeScript", "HTML", "CSS"],
-          inProgress: true,
+          link: "https://arredamentiduetorri.com",
+          linkLabel: "Live site",
           image: "/projects/ArredamentoDueTorri.png",
         },
       ],
