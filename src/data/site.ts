@@ -378,6 +378,15 @@ export const content: Record<Locale, LocaleContent> = {
           tags: ["React Native", ".NET / C#"],
           inProgress: true,
         },
+        {
+          title: "IncomeTracker",
+          description:
+            "Applicazione full-stack per la gestione delle entrate economiche pensata per ripetizioni, freelance e fonti di reddito diversificate: registrazione delle voci con categoria e studente associato, monitoraggio degli obiettivi mensili/annuali e grafici con Chart.js. Autenticazione JWT, supporto multilingua e containerizzazione Docker.",
+          tags: ["Angular", ".NET / C#", "SQLite", "Docker"],
+          repoUrl: "https://github.com/Fillo730/IncomeTracker",
+          repoLabel: "Codice",
+          image: "/projects/IncomeTracker.jpg",
+        },
       ],
     },
     freelance: {
@@ -668,6 +677,15 @@ export const content: Record<Locale, LocaleContent> = {
             "App to automate and speed up the exchange of information between drivers after a car accident: fills in the CID (friendly accident report) form and exchanges data via QR code. .NET backend, React Native mobile frontend.",
           tags: ["React Native", ".NET / C#"],
           inProgress: true,
+        },
+        {
+          title: "IncomeTracker",
+          description:
+            "Full-stack income management application for tutors, freelancers and diversified revenue sources: log entries tagged by category and student, track progress against monthly/annual goals and visualize data with Chart.js. JWT authentication, multi-language support and Docker containerization.",
+          tags: ["Angular", ".NET / C#", "SQLite", "Docker"],
+          repoUrl: "https://github.com/Fillo730/IncomeTracker",
+          repoLabel: "Code",
+          image: "/projects/IncomeTracker.jpg",
         },
       ],
     },
