@@ -59,6 +59,7 @@ export type Project = {
   repoUrl?: string;
   repoLabel?: string;
   inProgress?: boolean;
+  personal?: boolean;
   image?: string;
 };
 
@@ -96,6 +97,7 @@ export type LocaleContent = {
     eyebrow: string;
     heading: string;
     inProgressLabel: string;
+    personalLabel: string;
     items: Project[];
   };
   freelance: {
@@ -345,6 +347,7 @@ export const content: Record<Locale, LocaleContent> = {
       eyebrow: "Portfolio",
       heading: "Progetti",
       inProgressLabel: "In sviluppo",
+      personalLabel: "Progetto personale",
       items: [
         {
           title: "MovieWorld",
@@ -383,6 +386,7 @@ export const content: Record<Locale, LocaleContent> = {
           repoUrl: "https://github.com/Fillo730/IncomeTracker",
           repoLabel: "Codice",
           image: "/projects/IncomeTracker.jpg",
+          personal: true,
         },
         {
           title: "PomodoroTimer",
@@ -394,6 +398,7 @@ export const content: Record<Locale, LocaleContent> = {
           repoUrl: "https://github.com/Fillo730/PomodoroTimer",
           repoLabel: "Codice",
           image: "/projects/PomodoroTimer.jpg",
+          personal: true,
         },
       ],
     },
@@ -654,6 +659,7 @@ export const content: Record<Locale, LocaleContent> = {
       eyebrow: "Portfolio",
       heading: "Projects",
       inProgressLabel: "In development",
+      personalLabel: "Personal project",
       items: [
         {
           title: "MovieWorld",
@@ -692,6 +698,7 @@ export const content: Record<Locale, LocaleContent> = {
           repoUrl: "https://github.com/Fillo730/IncomeTracker",
           repoLabel: "Code",
           image: "/projects/IncomeTracker.jpg",
+          personal: true,
         },
         {
           title: "PomodoroTimer",
@@ -702,6 +709,7 @@ export const content: Record<Locale, LocaleContent> = {
           linkLabel: "Live demo",
           repoUrl: "https://github.com/Fillo730/PomodoroTimer",
           repoLabel: "Code",
+          personal: true,
           image: "/projects/PomodoroTimer.jpg",
         },
       ],
