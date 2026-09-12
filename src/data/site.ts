@@ -18,7 +18,6 @@ export function stripLocalePrefix(pathname: string): string {
 export const person = {
   name: "Filippo Bratti",
   email: "filippobratti3@gmail.com",
-  avatarInitials: "FB",
 };
 
 export type SocialLink = {
@@ -149,10 +148,10 @@ export const content: Record<Locale, LocaleContent> = {
       { label: "Contatti", href: "/contact" },
     ],
     hero: {
-      location: "Bologna, Italia",
+      location: "Italia",
       role: "Sviluppatore Full-Stack",
       tagline:
-        "Sviluppo applicazioni web front-end e back-end con tecnologie moderne, dall'idea alla produzione.",
+        "Sviluppo applicazioni enterprise con .NET e Angular, e siti vetrina veloci con Astro — dall'idea alla produzione.",
       ctaContact: "Contattami",
     },
     about: {
@@ -307,24 +306,22 @@ export const content: Record<Locale, LocaleContent> = {
           items: ["C", "C#", "Java (J2EE)", "Python", "SQL", "HTML", "CSS", "JavaScript"],
         },
         {
-          category: "Framework & Tecnologie",
-          items: [
-            "Angular",
-            "React",
-            "Astro",
-            "Next.js",
-            "Blazor (ASP.NET)",
-            "Bootstrap",
-            ".NET",
-            "Vite",
-          ],
+          category: "Frontend",
+          items: ["Angular", "React", "Astro", "Next.js", "Blazor (ASP.NET)", "Bootstrap", "Vite"],
+        },
+        {
+          category: "Backend",
+          items: [".NET", "Node.js"],
+        },
+        {
+          category: "Database",
+          items: ["SQL Server", "MongoDB", "SQLite"],
         },
         {
           category: "Strumenti & Piattaforme",
           items: [
             "Git (GitHub, BitBucket)",
-            "MongoDB",
-            "SQL Server",
+            "Docker",
             "Linux",
             "Bash",
             "Visual Studio Code",
@@ -386,6 +383,17 @@ export const content: Record<Locale, LocaleContent> = {
           repoUrl: "https://github.com/Fillo730/IncomeTracker",
           repoLabel: "Codice",
           image: "/projects/IncomeTracker.jpg",
+        },
+        {
+          title: "PomodoroTimer",
+          description:
+            "Progetto personale per il tracciamento delle sessioni di studio con la tecnica del Pomodoro: timer configurabile, statistiche per materia e per giorno, serie consecutive di giorni di studio e funzionamento offline con sincronizzazione locale. Backend Node.js/Express con SQLite, frontend JavaScript vanilla con grafici Chart.js, containerizzato con Docker.",
+          tags: ["Node.js", "Express", "SQLite", "Docker"],
+          link: "https://pomodorotimer-3m5n.onrender.com",
+          linkLabel: "Demo live",
+          repoUrl: "https://github.com/Fillo730/PomodoroTimer",
+          repoLabel: "Codice",
+          image: "/projects/PomodoroTimer.jpg",
         },
       ],
     },
@@ -450,10 +458,10 @@ export const content: Record<Locale, LocaleContent> = {
       { label: "Contact", href: "/contact" },
     ],
     hero: {
-      location: "Bologna, Italy",
+      location: "Italy",
       role: "Full-Stack Developer",
       tagline:
-        "Building front-end and back-end web applications with modern technologies, from idea to production.",
+        "Building enterprise applications with .NET and Angular, and fast showcase websites with Astro — from idea to production.",
       ctaContact: "Get in touch",
     },
     about: {
@@ -612,24 +620,22 @@ export const content: Record<Locale, LocaleContent> = {
           items: ["C", "C#", "Java (J2EE)", "Python", "SQL", "HTML", "CSS", "JavaScript"],
         },
         {
-          category: "Frameworks & Technologies",
-          items: [
-            "Angular",
-            "React",
-            "Astro",
-            "Next.js",
-            "Blazor (ASP.NET)",
-            "Bootstrap",
-            ".NET",
-            "Vite",
-          ],
+          category: "Frontend",
+          items: ["Angular", "React", "Astro", "Next.js", "Blazor (ASP.NET)", "Bootstrap", "Vite"],
+        },
+        {
+          category: "Backend",
+          items: [".NET", "Node.js"],
+        },
+        {
+          category: "Database",
+          items: ["SQL Server", "MongoDB", "SQLite"],
         },
         {
           category: "Tools & Platforms",
           items: [
             "Git (GitHub, BitBucket)",
-            "MongoDB",
-            "SQL Server",
+            "Docker",
             "Linux",
             "Bash",
             "Visual Studio Code",
@@ -686,6 +692,17 @@ export const content: Record<Locale, LocaleContent> = {
           repoUrl: "https://github.com/Fillo730/IncomeTracker",
           repoLabel: "Code",
           image: "/projects/IncomeTracker.jpg",
+        },
+        {
+          title: "PomodoroTimer",
+          description:
+            "Personal project to track study sessions using the Pomodoro technique: configurable timer, statistics by subject and by day, consecutive study-day streaks and offline support with local sync. Node.js/Express backend with SQLite, vanilla JavaScript frontend with Chart.js graphs, containerized with Docker.",
+          tags: ["Node.js", "Express", "SQLite", "Docker"],
+          link: "https://pomodorotimer-3m5n.onrender.com",
+          linkLabel: "Live demo",
+          repoUrl: "https://github.com/Fillo730/PomodoroTimer",
+          repoLabel: "Code",
+          image: "/projects/PomodoroTimer.jpg",
         },
       ],
     },
